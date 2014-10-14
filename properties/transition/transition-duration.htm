@@ -156,9 +156,18 @@
 <style>
 h1{font-size:16px;}
 .test{position:absolute;left:8px;width:200px;height:100px;margin:0 5px;padding:10px;border:1px solid #ddd;background-color:#eee;color:#000;
-	transition-property:left;
-	transition-duration:.5s;
+	-webkit-transition-timing-function:ease-in;
+	-moz-transition-timing-function:ease-in;
+	-o-transition-timing-function:ease-in;
 	transition-timing-function:ease-in;
+	-webkit-transition-property:left;
+	-moz-transition-property:left;
+	-o-transition-property:left;
+	transition-property:left;
+	-webkit-transition-duration:.5s;
+	-moz-transition-duration:.5s;
+	-o-transition-duration:.5s;
+	transition-duration:.5s;
 }
 .test:hover{left:100px;}
 </style>

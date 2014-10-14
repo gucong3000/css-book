@@ -51,7 +51,7 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>pointer-events</strong>：none | <mark class="defaultvalue">auto</mark> | none</p>
+			<p><strong>pointer-events</strong>：<mark class="defaultvalue">auto</mark> | none | visiblePainted | visibleFill | visibleStroke | visible | painted | fill | stroke | all</p>
 			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
 			<p><strong>适用于</strong>：所有元素</p>
 			<p><strong>继承性</strong>：有</p>
@@ -65,6 +65,7 @@
 				<dd>与pointer-events属性未指定时的表现效果相同。</dd>
 				<dt>none：</dt>
 				<dd>元素永远不会成为鼠标事件的target。但是，当其后代元素的pointer-events属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶触发父元素的事件侦听器。</dd>
+				<dd>其他值只能应用在SVG上。</dd>
 			</dl>
 		</div>
 	</section>
