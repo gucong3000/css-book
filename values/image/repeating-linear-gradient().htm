@@ -11,6 +11,14 @@
 <script src="../../js/html5.js"></script>
 <![endif]-->
 <link rel="stylesheet" href="../../skin/article.css" />
+<style>
+.img b {
+	background: url(images/repeating-linear-gradient.png);
+	background: -webkit-repeating-linear-gradient(#f00,#ff0 10%,#f00 15%);
+	background:    -moz-repeating-linear-gradient(#f00,#ff0 10%,#f00 15%);
+	background:         repeating-linear-gradient(#f00,#ff0 10%,#f00 15%);
+}
+</style>
 </head>
 <body>
 <nav id="guide" class="g-mod">
@@ -50,33 +58,25 @@
 	<section class="g-mod g-attr" id="syntax">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>&lt;repeating-linear-gradient&gt;</strong>：repeating-linear-gradient([ <a href="#dfn-syntax">&lt;point&gt;</a>,]? <a href="#dfn-syntax2">&lt;color-stop&gt;</a>[, <a href="#dfn-syntax2">&lt;color-stop&gt;</a>]+);</p>
-			<p id="dfn-syntax"><strong>&lt;point&gt;</strong>：[ left | right ]? [ top | bottom ]? || <a href="../angle/index.htm">&lt;angle&gt;</a>?</p>
-			<p id="dfn-syntax2"><strong>&lt;color-stop&gt;</strong>：<a href="../../properties/color/color.htm">&lt;color&gt;</a> [ <a href="../length/index.htm">&lt;length&gt;</a> | <a href="../numeric/percentage.htm">&lt;percentage&gt;</a> ]?</p>
+			<p><strong>&lt;repeating-linear-gradient&gt;</strong>：repeating-linear-gradient(  [ <a href="../angle/index.htm">&lt;angle&gt;</a> | to <a href="#dfn-syntax">&lt;side-or-corner&gt;</a> ,]? <a href="#dfn-syntax2">&lt;color-stop&gt;</a> [, <a href="#dfn-syntax2">&lt;color-stop&gt;</a>]+ )</p>
+			<p><strong>&lt;repeating-linear-gradient&gt;</strong>(私有前缀旧语法)：-prefix-repeating-linear-gradient(  [ <a href="../angle/index.htm">&lt;angle&gt;</a> | <a href="#dfn-syntax">&lt;side-or-corner&gt;</a> ,]? <a href="#dfn-syntax2">&lt;color-stop&gt;</a> [, <a href="#dfn-syntax2">&lt;color-stop&gt;</a>]+ )</p>
+			<p id="dfn-syntax"><strong>&lt;side-or-corner&gt;</strong>：[left | right] || [top | bottom]</p>
+			<p id="dfn-syntax2"><strong>&lt;color-stop&gt;</strong>：<a href="../../properties/color/color.htm">&lt;color&gt;</a> [ <a href="../numeric/percentage.htm">&lt;percentage&gt;</a> | <a href="../length/index.htm">&lt;length&gt;</a> ]?</p>
 		</div>
 	</section>
 	<section class="g-mod g-attr" id="value">
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
-			<h3 class="g-color-light">&lt;point&gt;</h3>
 			<dl>
-				<dt>left：</dt>
-				<dd>设置左边为渐变起点的横坐标值。</dd>
-				<dt>right：</dt>
-				<dd>设置右边为渐变起点的横坐标值。</dd>
-				<dt>top：</dt>
-				<dd>设置顶部为渐变起点的纵坐标值。</dd>
-				<dt>bottom：</dt>
-				<dd>设置底部为渐变起点的纵坐标值。</dd>
+				<dt>&lt;side-or-corner&gt;：</dt>
+				<dd>表示开始点的梯度线的位置。它由两个关键字：第一个指示水平方向，left或right，和第二个垂直方向，top或bottom。与顺序无关，每一个关键字都是可选的。to top, to bottom, to left和to right的取值分别转换为角0度，180度，270deg，90度。其他取值会被翻译成可让起始点处于该取值所描述的象限，同时垂直于相邻象限对角线的角度。这样一来，由&lt;color-stop&gt;描述的颜色正好适用于角点。这有时被称为“魔角”属性。结束点会相对正中心，与起始点对称。</dd>
 				<dt><a href="../angle/index.htm">&lt;angle&gt;</a>：</dt>
-				<dd>用角度值指定渐变的方向（或角度）。</dd>
-				<dt>&lt;color-stop&gt;：</dt>
-				<dd>指定渐变的起止颜色。</dd>
+				<dd>用角度值指定渐变的方向（或角度）。0deg为由下往上，90deg为从左往右，以此类推。注意私有前缀旧语法中，0deg为从左往右，90deg为从下往上。</dd>
 			</dl>
 			<h3 class="g-color-light">&lt;color-stop&gt;</h3>
 			<dl>
-				<dt><a href="../../properties/color/color.htm">&lt;color&gt;</a>：</dt>
-				<dd>指定颜色。请参阅<a href="../color/index.htm">颜色值</a></dd>
+				<dt><a href="../color/index.htm">&lt;color&gt;</a>：</dt>
+				<dd>指定颜色。</dd>
 				<dt><a href="../length/index.htm">&lt;length&gt;</a>：</dt>
 				<dd>用长度值指定起止色位置。不允许负值</dd>
 				<dt><a href="../numeric/percentage.htm">&lt;percentage&gt;</a>：</dt>
@@ -90,17 +90,13 @@
 			<strong>用重复的线性渐变创建图像。</strong>
 			<ul>
 				<li>repeating-linear-gradient()的语法与<a href="linear-gradient().htm">linear-gradient()</a>相同。</li>
-				<li>写本文档时Firefox,Chrome,Opera已经在实验性质阶段支持了该属性，Safari对该属性的支持仍停留在以私有方式实现的阶段。</li>
-				<li>Firefox还支持使用<a href="../numeric/percentage.htm">&lt;percentage&gt;</a>、<a href="../length/index.htm">&lt;length&gt;</a>和center特殊值定义渐变起点，并支持起点与角度一起使用。</li>
 				<li>
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
 						<div class="gquote-cont">
-							<p class="img"><image src="images/repeating-linear-gradient.png" /><br />（图一）</p>
+							<p class="img"><b></b>（图一）</p>
 							<blockquote class="code"><pre><code>repeating-linear-gradient(#f00,#ff0 10%,#f00 15%);
-repeating-linear-gradient(top,#f00,#ff0 10%,#f00 15%);
-repeating-linear-gradient(-90deg,#f00,#ff0 10%,#f00 15%);
-repeating-linear-gradient(270deg,#f00,#ff0 10%,#f00 15%);
+repeating-linear-gradient(180deg,#f00,#ff0 10%,#f00 15%);
 </code></pre></blockquote>
 						</div>
 						<p class="gquote-info">以上几句代码都可以实现如（图一）的渐变效果</p>
