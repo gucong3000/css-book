@@ -173,6 +173,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			"box-shadow": "boxshadow",
 			transform: "transforms2d",
 			"@media": "mediaqueries",
+			columns: "multicolumn",
 			vmax: "viewport-units",
 			vmin: "viewport-units",
 			vw: "viewport-units",
@@ -182,7 +183,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			"hsl": "css3-colors",
 			"calc()": "calc",
 		},
-		regPropSub = /(-\w+)+$/,
+		regPropSub = /(-\w+)+$/g,
 		regPropS = /s$/,
 		tabData = {},
 		rowNum = 0,
@@ -205,10 +206,15 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			getDate(prop + "s");
 		}
 		if (data) {
-			if (/^(vw|vh|vmin|(repeating-)?linear-gradient\(\))$/.test(propName)) {
-				data = JSON.parse(JSON.stringify(data).replace(/"a\b/g, "\"y"));
-			} else if (/^(vmax|(repeating-)?radial-gradient\(\))$/.test(propName)) {
-				data = JSON.parse(JSON.stringify(data).replace(/"a\b[^"]*/g, "\"n"));
+			if(/^column-break\b/.test(propName)){
+				data = JSON.parse(JSON.stringify(data));
+				data.stats.firefox = JSON.parse(JSON.stringify(data.stats.firefox).replace(/"a\b[^"]*/g, "\"n"));
+			} else {
+				if (/^(vw|vh|vmin|(repeating-)?linear-gradient\(\)|columns|column(-\w+)*)$/.test(propName)) {
+					data = JSON.parse(JSON.stringify(data).replace(/"a\b/g, "\"y"));
+				} else if (/^(vmax|(repeating-)?radial-gradient\(\))$/.test(propName)) {
+					data = JSON.parse(JSON.stringify(data).replace(/"a\b[^"]*/g, "\"n"));
+				}
 			}
 			propName = prop;
 		}
