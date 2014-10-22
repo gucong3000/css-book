@@ -44,7 +44,6 @@ jQuery.cookie = function(name, value, options) {
 //iframe层与iframe父层的数据交互。把iframe的父层的document注册到iframe层。
 window.topDocument = window.top.document;
 
-
 /*
  *  全局函数的封装
  */
@@ -1011,7 +1010,7 @@ Global.folding($('.g-combobox',topDocument));
 	(function(){
 		if(!Global.name){return false;}
 			var url = Global.pathname.slice(1),
-			onLink = dytree.find('a[href$="'+url+'"]'),
+			onLink = dytree.find('a[href$="/'+url+'"]'),
 			onLinkList = onLink.parents('ul'),
 			onLinkFolder = onLinkList.siblings('.haschild'),
 			onFolder = onLink.parents('.haschild'),
