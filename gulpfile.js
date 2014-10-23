@@ -168,6 +168,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			"repeating-radial-gradient()": "css-repeating-gradients",
 			"linear-gradient()": "css-gradients",
 			"radial-gradient()": "css-gradients",
+			"user-select": "user-select-none",
+			"box-sizing": "css3-boxsizing",
 			"text-shadow": "textshadow",
 			"tab-size": "css3-tabsize",
 			"box-shadow": "boxshadow",

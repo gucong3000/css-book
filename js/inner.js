@@ -48,11 +48,6 @@ window.topDocument = window.top.document;
  *  全局函数的封装
  */
 var Global = {
-	pushState: function(url){
-		try {
-			top.history.pushState(null, null, url);
-		} catch (ex){}
-	},
 	//在线手册根目录，默认值
 	rootPath: "http://css.doyoe.com",
 	//是否chm浏览方式
@@ -98,9 +93,12 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol) ) {
 			}
 			location = Global.rootPath + (/^file:$/i.test(location.protocol) ? "/index.htm" : "");
 		} else {
-			$("#dytree a", topDocument).prop("href", function(){
-				return this.href;
-			});
+			setTimeout(function(){
+				try {
+					top.history.pushState(null, null, location.href);
+				} catch (ex){}
+			}, 0);
+
 			var pos = sessionStorage ? sessionStorage.getItem("pos") : $.cookie("pos");
 			if(pos){
 				if(supportStorage){
@@ -109,7 +107,6 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol) ) {
 					$.cookie("pos", null, {path: "/"});
 				}
 				$('#archives',topDocument).attr('src', pos);
-				Global.pushState(pos);
 			}
 		}
 	})();
@@ -1009,12 +1006,14 @@ Global.folding($('.g-combobox',topDocument));
 	//让父页面中的左侧的导航树中对应子页面正在打开的项 被选中.
 	(function(){
 		if(!Global.name){return false;}
-			var url = Global.pathname.slice(1),
-			onLink = dytree.find('a[href$="/'+url+'"]'),
+		var url = Global.pathname.slice(1),
+			onLink = dytree.find('a[href$="/'+url+'"],a[href="'+url+'"]'),
 			onLinkList = onLink.parents('ul'),
 			onLinkFolder = onLinkList.siblings('.haschild'),
 			onFolder = onLink.parents('.haschild'),
 			onFolderList = onFolder.siblings('ul');
+		top.console.log(url)
+		top.console.log(onLink)
 
 		//选中链接
 		allLinks.removeClass('on');
@@ -1046,7 +1045,11 @@ Global.folding($('.g-combobox',topDocument));
 			item.hasClass('open') ? item.removeClass('open') : item.addClass('open');
 			list.hasClass('unfold') ? list.removeClass('unfold') : list.addClass('unfold');
 		}
-	})
+	});
+
+	allLinks.prop("href", function(){
+		return this.href;
+	});
 
 	//点击链接时更改右侧iframe的地址,显示当前选择,阻止默认行为
 	dytree.on("click", "a", function(e){
@@ -1063,7 +1066,6 @@ Global.folding($('.g-combobox',topDocument));
 		//阻止默认行为
 		e.preventDefault();
 
-		Global.pushState(iframeSrc);
 	});
 
 	dytree.prop('loaded', true);
