@@ -163,6 +163,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			n: "unsupport",
 			y: "support"
 		},
+		// 数据项在数据库中的名称与css属性名称转换
 		propFix = {
 			"repeating-linear-gradient()": "css-repeating-gradients",
 			"repeating-radial-gradient()": "css-repeating-gradients",
@@ -208,7 +209,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			getDate(prop + "s");
 		}
 		if (data) {
-			if(/^column-break\b/.test(propName)){
+			if (/^column-break\b/.test(propName)) {
 				data = JSON.parse(JSON.stringify(data));
 				data.stats.firefox = JSON.parse(JSON.stringify(data.stats.firefox).replace(/"a\b[^"]*/g, "\"n"));
 			} else {
@@ -216,6 +217,12 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					data = JSON.parse(JSON.stringify(data).replace(/"a\b/g, "\"y"));
 				} else if (/^(vmax|(repeating-)?radial-gradient\(\))$/.test(propName)) {
 					data = JSON.parse(JSON.stringify(data).replace(/"a\b[^"]*/g, "\"n"));
+				}
+				// caniuse-db 版本 1.0.30000013 中，出现了Android的奇怪版本号37，未搞懂，先过滤掉
+				for (var i in data.stats.android) {
+					if (i > 36) {
+						delete data.stats.android[i];
+					}
 				}
 			}
 			propName = prop;
