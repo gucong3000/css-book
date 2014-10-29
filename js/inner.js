@@ -1047,7 +1047,7 @@ Global.folding($('.g-combobox',topDocument));
 		}
 	});
 
-	allLinks.prop("href", function(){
+	$("a", topDocument).prop("href", function() {
 		return this.href;
 	});
 
