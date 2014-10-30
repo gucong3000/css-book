@@ -33,7 +33,7 @@ References:
 	var doc = document;
 	var root = doc.documentElement;
 	var xhr = "XMLHttpRequest";
-	var ieVersion = doc.querySelector ? doc.documentMode : (doc.compatMode == "CSS1Compat" ? xhr in win ? 7 : 6 : 5);
+	var ieVersion = doc.querySelector ? doc.documentMode : (doc.compatMode === "CSS1Compat" ? xhr in win ? 7 : 6 : 5);
 
 	// String constants
 	var EMPTY_STRING						= "";
@@ -315,7 +315,7 @@ References:
 
 		var applyClass = true;
 		var className = createClassName(pseudo.slice(1));
-		var isNegated = pseudo.substring(0, 5) == ":not(";
+		var isNegated = pseudo.substring(0, 5) === ":not(";
 		var activateEventName;
 		var deactivateEventName;
 
@@ -331,23 +331,23 @@ References:
 		}
 
 		// check we're still dealing with a pseudo-class
-		if (pseudo.charAt(0) == ":") {
+		if (pseudo.charAt(0) === ":") {
 			switch (pseudo.slice(1)) {
 
 				case "root":
 					applyClass = function(e) {
-						return isNegated ? e != root : e == root;
+						return isNegated ? e !== root : e === root;
 					};
 					break;
 
 				case "target":
 					// :target is only supported in IE8
-					if (ieVersion == 8) {
+					if (ieVersion === 8) {
 						applyClass = function(e) {
 							var handler = function() {
 								var hash = location.hash;
 								var hashID = hash.slice(1);
-								return isNegated ? (hash == EMPTY_STRING || e.id != hashID) : (hash != EMPTY_STRING && e.id == hashID);
+								return isNegated ? (hash === EMPTY_STRING || e.id !== hashID) : (hash !== EMPTY_STRING && e.id === hashID);
 							};
 							addEvent( win, "hashchange", function() {
 								toggleElementClass(e, className, handler());
@@ -362,7 +362,7 @@ References:
 					applyClass = function(e) {
 						if (RE_INPUT_CHECKABLE_TYPES.test(e.type)) {
 							addEvent( e, "propertychange", function() {
-								if (event.propertyName == "checked") {
+								if (event.propertyName === "checked") {
 									toggleElementClass( e, className, e.checked !== isNegated );
 								}
 							});
@@ -378,7 +378,7 @@ References:
 					applyClass = function(e) {
 						if (RE_INPUT_ELEMENTS.test(e.tagName)) {
 							addEvent( e, "propertychange", function() {
-								if (event.propertyName == "$disabled") {
+								if (event.propertyName === "$disabled") {
 									toggleElementClass( e, className, e.$disabled === isNegated );
 								}
 							});
@@ -386,7 +386,7 @@ References:
 							e.$disabled = e.disabled;
 							return e.disabled === isNegated;
 						}
-						return pseudo == ":enabled" ? isNegated : !isNegated;
+						return pseudo === ":enabled" ? isNegated : !isNegated;
 					};
 					break;
 
@@ -438,7 +438,7 @@ References:
 
 			// If the dom selector equates to an empty string or ends with
 			// whitespace then we need to append a universal selector (*) to it.
-			if (domSelectorText == EMPTY_STRING || domSelectorText.charAt(domSelectorText.length - 1) == SPACE_STRING) {
+			if (domSelectorText === EMPTY_STRING || domSelectorText.charAt(domSelectorText.length - 1) === SPACE_STRING) {
 				domSelectorText += "*";
 			}
 
@@ -480,7 +480,7 @@ References:
 	// =========================== Utility =================================
 
 	function createClassName( className ) {
-		return namespace + "-" + ((ieVersion == 6 && patchIE6MultipleClasses) ?
+		return namespace + "-" + ((ieVersion === 6 && patchIE6MultipleClasses) ?
 			ie6PatchID++
 		:
 			className.replace(RE_PATCH_CLASS_NAME_REPLACE, function(a) { return a.charCodeAt(0); }));
@@ -527,7 +527,7 @@ References:
 	function toggleElementClass( elm, className, on ) {
 		var oldClassName = elm.className;
 		var newClassName = toggleClass(oldClassName, className, on);
-		if (newClassName != oldClassName) {
+		if (newClassName !== oldClassName) {
 			elm.className = newClassName;
 			elm.parentNode.className += EMPTY_STRING;
 		}
@@ -598,23 +598,23 @@ References:
 		}
 
 		// protocol-relative path
-		if (url.substring(0,2)=="//") {
+		if (url.substring(0,2) === "//") {
 			url = getProtocol(contextUrl) + url;
 		}
 
 		// absolute path
 		if (/^\w+:\/\//i.test(url)) {
-			return !ignoreSameOriginPolicy && getProtocolAndHost(contextUrl) != getProtocolAndHost(url) ? null : url ;
+			return !ignoreSameOriginPolicy && getProtocolAndHost(contextUrl) !== getProtocolAndHost(url) ? null : url ;
 		}
 
 		// root-relative path
-		if (url.charAt(0)=="/")	{
+		if (url.charAt(0) === "/")	{
 			return getProtocolAndHost(contextUrl) + url;
 		}
 
 		// relative path
 		var contextUrlPath = contextUrl.split(/[?#]/)[0]; // ignore query string in the contextUrl
-		if (url.charAt(0) != "?" && contextUrlPath.charAt(contextUrlPath.length - 1) != "/") {
+		if (url.charAt(0) !== "?" && contextUrlPath.charAt(contextUrlPath.length - 1) !== "/") {
 			contextUrlPath = contextUrlPath.substring(0, contextUrlPath.lastIndexOf("/") + 1);
 		}
 
@@ -744,7 +744,7 @@ References:
 			if (win[engine]) {
 				members = selectorEngines[engine].replace("*", engine).split(".");
 				while ((member = members.shift()) && (context = context[member])) {}
-				if (typeof context == "function") {
+				if (typeof context === "function") {
 					selectorMethod = context;
 					init();
 					return;
