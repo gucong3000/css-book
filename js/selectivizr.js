@@ -1,31 +1,33 @@
 /*
-selectivizr v1.0.3b - (c) Keith Clark, freely distributable under the terms 
+selectivizr v1.0.3b - (c) Keith Clark, freely distributable under the terms
 of the MIT license.
 
 selectivizr.com
 */
-/* 
-  
+/*
+
 Notes about this source
 -----------------------
 
  * The #DEBUG_START and #DEBUG_END comments are used to mark blocks of code
    that will be removed prior to building a final release version (using a
    pre-compression script)
-  
-  
+
+
 References:
 -----------
- 
+
  * CSS Syntax          : http://www.w3.org/TR/2003/WD-css3-syntax-20030813/#style
  * Selectors           : http://www.w3.org/TR/css3-selectors/#selectors
  * IE Compatability    : http://msdn.microsoft.com/en-us/library/cc351024(VS.85).aspx
  * W3C Selector Tests  : http://www.w3.org/Style/CSS/Test/CSS3/Selectors/current/html/tests/
- 
+
 */
 
-(function(win) {
+/*global jQuery: false, PIE: false, StyleFix: false, ActiveXObject: false, styleMedia: false */
 
+(function(win) {
+	"use strict";
 	// =========================== Init Objects ============================
 
 	var doc = document;
@@ -62,8 +64,8 @@ References:
 	}
 
 	// an XMLHttpRequest object then we should get out now.
-	xhr = ieVersion < 7 ? new ActiveXObject("Microsoft.XMLHTTP") : new win[xhr];
-	
+	xhr = ieVersion < 7 ? new ActiveXObject("Microsoft.XMLHTTP") : new win[xhr]();
+
 	// ========================= Common Objects ============================
 
 	// Compatiable selector engines in order of CSS3 support. Note: '*' is
@@ -71,10 +73,10 @@ References:
 	var selectorEngines = {
 		"NW"								: "*.Dom.select",
 		"MooTools"							: "$$",
-		"DOMAssistant"						: "*.$", 
+		"DOMAssistant"						: "*.$",
 		"Prototype"							: "$$",
 		"YAHOO"								: "*.util.Selector.query",
-		"Sizzle"							: "*", 
+		"Sizzle"							: "*",
 		"jQuery"							: "*",
 		"dojo"								: "*.query"
 	};
@@ -91,15 +93,15 @@ References:
 	var RE_ORIGIN							= /^\w+:\/\/[^\/]+/;
 	var RE_COMMENT							= /(\/\*[^*]*\*+([^\/][^*]*\*+)*\/)\s*?/g;
 	var RE_IMPORT							= /@import\s*(?:(?:(?:url\(\s*(['"]?)(.*)\1)\s*\))|(?:(['"])(.*)\3))\s*([^;]*);/g;
-	var RE_MEDIA							= /@media\s+([^\{]+)/g
+	var RE_MEDIA							= /@media\s+([^\{]+)/g;
 	var RE_ASSET_URL						= /(\bbehavior\s*?:[^;}\n\r]+)?\burl\(\s*(["']?)(?!\w+:)([^"')]+)\2\s*\)/g;
 	var RE_PSEUDO_STRUCTURAL				= /^:(empty|(first|last|only|nth(-last)?)-(child|of-type))$/;
 	var RE_PSEUDO_ELEMENTS					= /:(:first-(?:line|letter))/g;
 	var RE_SELECTOR_GROUP					= /((?:^|(?:\s*})+)(?:\s*@media[^{]+{)?)\s*([^\{]*?[\[:][^{]+)/g;
-	var RE_SELECTOR_PARSE					= /([ +~>])|(:[a-z-]+(?:\(.*?\)+)?)|(\[.*?\])/g; 
+	var RE_SELECTOR_PARSE					= /([ +~>])|(:[a-z-]+(?:\(.*?\)+)?)|(\[.*?\])/g;
 	var RE_LIBRARY_INCOMPATIBLE_PSEUDOS		= /(:not\()?:(hover|enabled|disabled|focus|checked|target|active|visited|first-line|first-letter)\)?/g;
 	var RE_PATCH_CLASS_NAME_REPLACE			= /[^\w-]/g;
-	
+
 	// HTML UI element regexp's
 	var RE_INPUT_ELEMENTS					= /^(INPUT|SELECT|TEXTAREA|BUTTON)$/;
 	var RE_INPUT_CHECKABLE_TYPES			= /^(checkbox|radio)$/;
@@ -112,7 +114,7 @@ References:
 	var RE_TIDY_LEADING_WHITESPACE			= /\s+([)\]+~])/g;
 	var RE_TIDY_CONSECUTIVE_WHITESPACE		= /\s+/g;
 	var RE_TIDY_TRIM_WHITESPACE				= /^\s*((?:[\S\s]*\S)?)\s*$/;
-	
+
 	// PIE
 	var pie_path							= win.PIE && "behavior" in PIE ? PIE.behavior : js_path.replace(RE_ORIGIN, "") + "PIE.htc";
 
@@ -121,6 +123,13 @@ References:
 		script.src = src;
 		root.children[0].appendChild(script);
 		return script;
+	}
+
+	function forEach(fn, array) {
+		array = array || doc.styleSheets;
+		for (var i = array.length - 1; i >= 0; i--) {
+			fn(array[i], i);
+		}
 	}
 
 	function vunits(css, raw, ele) {
@@ -152,27 +161,23 @@ References:
 		);
 	}
 
-	// IE media queries, vm, vw, vh, vmax, vmin, rem 
+	// IE media queries, vm, vw, vh, vmax, vmin, rem
 	function setLengthUnits() {
 		var rem = root.currentStyle.fontSize.match(/([\d\.]+)([^\d\.]+)/),
 			units = {
 				"%": 0.12,
 				em: 12,
 				ex: 6
-			},
-			stylesheet,
-			cssText;
+			};
 
-		if(units[rem[2]]){
+		if (units[rem[2]]) {
 			rem[1] = rem[1] * units[rem[2]];
 			rem[2] = "pt";
 		} else {
 			rem[1] = parseFloat(rem[1]);
 		}
-
-		for (var c = 0; c < doc.styleSheets.length; c++) {
-			stylesheet = doc.styleSheets[c];
-			cssText = stylesheet[strRawCssText];
+		forEach(function(stylesheet) {
+			var cssText = stylesheet[strRawCssText];
 			if (cssText) {
 				cssText = vunits(cssText);
 				if (ieVersion < 9) {
@@ -193,7 +198,7 @@ References:
 				}
 				stylesheet.cssText = cssText;
 			}
-		}
+		});
 	}
 
 	// =========================== Patching ================================
@@ -266,20 +271,21 @@ References:
 
 		// IE CSS3 selector
 		return ieVersion > 8 ? cssText : cssText.replace(RE_PSEUDO_ELEMENTS, PLACEHOLDER_STRING).
-			replace(RE_SELECTOR_GROUP, function(m, prefix, selectorText) {	
-				var selectorGroups = selectorText.split(",");
-				for (var c = 0, cs = selectorGroups.length; c < cs; c++) {
-					var selector = normalizeSelectorWhitespace(selectorGroups[c]) + SPACE_STRING;
+			replace(RE_SELECTOR_GROUP, function(m, prefix, selectorText) {
+
+				var selectorGroups = [];
+				forEach(function(selector, c) {
+					selector = normalizeSelectorWhitespace(selector) + SPACE_STRING;
 					var patches = [];
-					selectorGroups[c] = selector.replace(RE_SELECTOR_PARSE, 
+					selectorGroups[c] = selector.replace(RE_SELECTOR_PARSE,
 						function(match, combinator, pseudo, attribute, index) {
 							if (combinator) {
 								if (patches.length>0) {
-									domPatches.push( { selector: selector.substring(0, index), patches: patches } )
+									domPatches.push( { selector: selector.substring(0, index), patches: patches } );
 									patches = [];
 								}
 								return combinator;
-							}		
+							}
 							else {
 								var patch = (pseudo) ? patchPseudoClass( pseudo ) : patchAttribute( attribute );
 								if (patch) {
@@ -290,17 +296,18 @@ References:
 							}
 						}
 					);
-				}
+				}, selectorText.split(","));
+
 				return prefix + selectorGroups.join(",");
 			});
-	};
+	}
 
 	// --[ patchAttribute() ]-----------------------------------------------
 	// returns a patch for an attribute selector.
 	function patchAttribute( attr ) {
-		return (!BROKEN_ATTR_IMPLEMENTATIONS || BROKEN_ATTR_IMPLEMENTATIONS.test(attr)) ? 
+		return (!BROKEN_ATTR_IMPLEMENTATIONS || BROKEN_ATTR_IMPLEMENTATIONS.test(attr)) ?
 			{ className: createClassName(attr), applyClass: true } : null;
-	};
+	}
 
 	// --[ patchPseudoClass() ]---------------------------------------------
 	// returns a patch for a pseudo-class
@@ -312,17 +319,17 @@ References:
 		var activateEventName;
 		var deactivateEventName;
 
-		// if negated, remove :not() 
+		// if negated, remove :not()
 		if (isNegated) {
 			pseudo = pseudo.slice(5, -1);
 		}
-		
+
 		// bracket contents are irrelevant - remove them
-		var bracketIndex = pseudo.indexOf("(")
+		var bracketIndex = pseudo.indexOf("(");
 		if (bracketIndex > -1) {
 			pseudo = pseudo.substring(0, bracketIndex);
-		}		
-		
+		}
+
 		// check we're still dealing with a pseudo-class
 		if (pseudo.charAt(0) == ":") {
 			switch (pseudo.slice(1)) {
@@ -330,63 +337,63 @@ References:
 				case "root":
 					applyClass = function(e) {
 						return isNegated ? e != root : e == root;
-					}
+					};
 					break;
 
 				case "target":
 					// :target is only supported in IE8
 					if (ieVersion == 8) {
 						applyClass = function(e) {
-							var handler = function() { 
+							var handler = function() {
 								var hash = location.hash;
 								var hashID = hash.slice(1);
 								return isNegated ? (hash == EMPTY_STRING || e.id != hashID) : (hash != EMPTY_STRING && e.id == hashID);
 							};
 							addEvent( win, "hashchange", function() {
 								toggleElementClass(e, className, handler());
-							})
+							});
 							return handler();
-						}
+						};
 						break;
 					}
 					return false;
-				
+
 				case "checked":
-					applyClass = function(e) { 
+					applyClass = function(e) {
 						if (RE_INPUT_CHECKABLE_TYPES.test(e.type)) {
 							addEvent( e, "propertychange", function() {
 								if (event.propertyName == "checked") {
 									toggleElementClass( e, className, e.checked !== isNegated );
-								} 							
-							})
+								}
+							});
 						}
 						return e.checked !== isNegated;
-					}
+					};
 					break;
-					
+
 				case "disabled":
 					isNegated = !isNegated;
-
+					/* falls through */
 				case "enabled":
-					applyClass = function(e) { 
+					applyClass = function(e) {
 						if (RE_INPUT_ELEMENTS.test(e.tagName)) {
 							addEvent( e, "propertychange", function() {
 								if (event.propertyName == "$disabled") {
 									toggleElementClass( e, className, e.$disabled === isNegated );
-								} 
+								}
 							});
 							enabledWatchers.push(e);
 							e.$disabled = e.disabled;
 							return e.disabled === isNegated;
 						}
 						return pseudo == ":enabled" ? isNegated : !isNegated;
-					}
+					};
 					break;
-					
+
 				case "focus":
 					activateEventName = "focus";
 					deactivateEventName = "blur";
-								
+					/* falls through */
 				case "hover":
 					if (!activateEventName) {
 						activateEventName = "mouseenter";
@@ -395,17 +402,17 @@ References:
 					applyClass = function(e) {
 						addEvent( e, isNegated ? deactivateEventName : activateEventName, function() {
 							toggleElementClass( e, className, true );
-						})
+						});
 						addEvent( e, isNegated ? activateEventName : deactivateEventName, function() {
 							toggleElementClass( e, className, false );
-						})
+						});
 						return isNegated;
-					}
+					};
 					break;
-					
+
 				// everything else
 				default:
-					// If we don't support this pseudo-class don't create 
+					// If we don't support this pseudo-class don't create
 					// a patch for it
 					if (!RE_PSEUDO_STRUCTURAL.test(pseudo)) {
 						return false;
@@ -414,7 +421,7 @@ References:
 			}
 		}
 		return { className: className, applyClass: applyClass };
-	};
+	}
 
 	// --[ applyPatches() ]-------------------------------------------------
 	function applyPatches() {
@@ -461,29 +468,29 @@ References:
 				}
 			}
 		}
-	};
+	}
 
 	// --[ hasPatch() ]-----------------------------------------------------
 	// checks for the exsistence of a patch on an element
 	function hasPatch( elm, patch ) {
 		return new RegExp("(^|\\s)" + patch.className + "(\\s|$)").test(elm.className);
-	};
-	
-	
+	}
+
+
 	// =========================== Utility =================================
-	
+
 	function createClassName( className ) {
 		return namespace + "-" + ((ieVersion == 6 && patchIE6MultipleClasses) ?
 			ie6PatchID++
 		:
-			className.replace(RE_PATCH_CLASS_NAME_REPLACE, function(a) { return a.charCodeAt(0) }));
-	};
+			className.replace(RE_PATCH_CLASS_NAME_REPLACE, function(a) { return a.charCodeAt(0); }));
+	}
 
 	// --[ isDocComplete() ]-----------------------------------------------------
 	// checks doc.readyState
 	function isDocComplete() {
 		return doc.readyState === "complete";
-	};
+	}
 
 	// --[ log() ]----------------------------------------------------------
 	// #DEBUG_START
@@ -491,20 +498,20 @@ References:
 		if (win.console) {
 			win.console.log(message);
 		}
-	};
+	}
 	// #DEBUG_END
 
 	// --[ trim() ]---------------------------------------------------------
 	// removes leading, trailing whitespace from a string
 	function trim( text ) {
 		return text.replace(RE_TIDY_TRIM_WHITESPACE, PLACEHOLDER_STRING);
-	};
+	}
 
 	// --[ normalizeWhitespace() ]------------------------------------------
 	// removes leading, trailing and consecutive whitespace from a string
 	function normalizeWhitespace( text ) {
 		return trim(text).replace(RE_TIDY_CONSECUTIVE_WHITESPACE, SPACE_STRING);
-	};
+	}
 
 	// --[ normalizeSelectorWhitespace() ]----------------------------------
 	// tidies whitespace around selector brackets and combinators
@@ -513,7 +520,7 @@ References:
 			replace(RE_TIDY_TRAILING_WHITESPACE, PLACEHOLDER_STRING).
 			replace(RE_TIDY_LEADING_WHITESPACE, PLACEHOLDER_STRING)
 		);
-	};
+	}
 
 	// --[ toggleElementClass() ]-------------------------------------------
 	// toggles a single className on an element
@@ -524,25 +531,25 @@ References:
 			elm.className = newClassName;
 			elm.parentNode.className += EMPTY_STRING;
 		}
-	};
+	}
 
 	// --[ toggleClass() ]--------------------------------------------------
-	// adds / removes a className from a string of classNames. Used to 
+	// adds / removes a className from a string of classNames. Used to
 	// manage multiple class changes without forcing a DOM redraw
 	function toggleClass( classList, className, on ) {
-		var re = RegExp("(^|\\s)" + className + "(\\s|$)");
+		var re = new RegExp("(^|\\s)" + className + "(\\s|$)");
 		var classExists = re.test(classList);
 		if (on) {
 			return classExists ? classList : classList + SPACE_STRING + className;
 		} else {
 			return classExists ? trim(classList.replace(re, PLACEHOLDER_STRING)) : classList;
 		}
-	};
-	
+	}
+
 	// --[ addEvent() ]-----------------------------------------------------
 	function addEvent(elm, eventName, eventHandler) {
 		elm.attachEvent("on" + eventName, eventHandler);
-	};
+	}
 
 	// --[ loadStyleSheet() ]-----------------------------------------------
 	function loadStyleSheet( url ) {
@@ -571,8 +578,8 @@ References:
 			ajaxCache[url] = cssText;
 		}
 		return cssText || EMPTY_STRING;
-	};
-	
+	}
+
 	// --[ resolveUrl() ]---------------------------------------------------
 	// Converts a URL fragment to a fully qualified URL using the specified
 	// context URL. Returns null if same-origin policy is broken
@@ -580,11 +587,11 @@ References:
 
 		function getProtocol( url ) {
 			return url.substring(0, url.indexOf("//"));
-		};
+		}
 
 		function getProtocolAndHost( url ) {
 			return url.substring(0, url.indexOf("/", 8));
-		};
+		}
 
 		if (!contextUrl) {
 			contextUrl = baseUrl;
@@ -606,14 +613,14 @@ References:
 		}
 
 		// relative path
-		var contextUrlPath = contextUrl.split(/[?#]/)[0]; // ignore query string in the contextUrl	
+		var contextUrlPath = contextUrl.split(/[?#]/)[0]; // ignore query string in the contextUrl
 		if (url.charAt(0) != "?" && contextUrlPath.charAt(contextUrlPath.length - 1) != "/") {
 			contextUrlPath = contextUrlPath.substring(0, contextUrlPath.lastIndexOf("/") + 1);
 		}
 
 		return contextUrlPath + url;
-	};
-	
+	}
+
 	// --[ parseStyleSheet() ]----------------------------------------------
 	// Downloads the stylesheet specified by the URL, removes it's comments
 	// and recursivly replaces @import rules with their contents, ultimately
@@ -625,13 +632,13 @@ References:
 				var cssText = parseStyleSheet(resolveUrl(importUrl || importUrl2, url));
 				return (media) ? "@media " + media + " {" + cssText + "}" : cssText;
 			}).
-			replace(RE_ASSET_URL, function( match, isBehavior, quoteChar, assetUrl ) { 
+			replace(RE_ASSET_URL, function( match, isBehavior, quoteChar, assetUrl ) {
 				quoteChar = quoteChar || EMPTY_STRING;
-				return isBehavior ? match : " url(" + quoteChar + resolveUrl(assetUrl, url, true) + quoteChar + ") "; 
+				return isBehavior ? match : " url(" + quoteChar + resolveUrl(assetUrl, url, true) + quoteChar + ") ";
 			});
 		}
 		return EMPTY_STRING;
-	};
+	}
 
 	// --[ getStyleSheets() ]-----------------------------------------------
 	function getStyleSheets() {
@@ -643,38 +650,33 @@ References:
 				}
 				var $ = win.jQuery,
 					timer;
-				if($){
+				if ($) {
 					timer = setTimeout(start, 800);
 					$(start);
-				}else {
+				} else {
 					start();
 				}
 				node.runtimeStyle.behavior = "none";
-			}
+			};
 		}
 
-		var styles = doc.getElementsByTagName("style"),
-			styleSheet,
-			rawCssText,
-			url,
-			i;
-		for (i = styles.length - 1; i >= 0; i--) {
-			rawCssText = styles[i].innerHTML;
-			styleSheet = styles[i].styleSheet;
+		forEach(function(style) {
+			var rawCssText = style.innerHTML,
+				styleSheet = style.styleSheet;
 			if (!(strRawCssText in styleSheet)) {
 				styleSheet[strRawCssText] = patchStyleSheet(rawCssText);
 			}
-		}
+		}, doc.getElementsByTagName("style"));
 
-		for (i = doc.styleSheets.length - 1; i >= 0; i--) {
-			styleSheet = doc.styleSheets[i]
-			url = styleSheet.href;
+		forEach(function(styleSheet) {
+			var url = styleSheet.href;
 			if (url && !(strRawCssText in styleSheet)) {
 				styleSheet[strRawCssText] = patchStyleSheet(parseStyleSheet(resolveUrl(url) || url));
 			}
-		}
+		});
+
 		setLengthUnits();
-	};
+	}
 
 	// --[ init() ]---------------------------------------------------------
 	function init() {
@@ -692,8 +694,8 @@ References:
 
 			applyPatches();
 
-			// :enabled & :disabled polling script (since we can't hook 
-			// onpropertychange event when an element is disabled) 
+			// :enabled & :disabled polling script (since we can't hook
+			// onpropertychange event when an element is disabled)
 			if (enabledWatchers.length > 0) {
 				setInterval( function() {
 					for (var c = 0, cl = enabledWatchers.length; c < cl; c++) {
@@ -712,7 +714,7 @@ References:
 				}, 250);
 			}
 		}
-	};
+	}
 
 	if(ieVersion < 8){
 		pie_path = "behavior: expression(window.PIE&&PIE.attach_ie67&&PIE.attach_ie67(this));";
@@ -734,8 +736,8 @@ References:
 
 	addEvent(win, "resize", setLengthUnits);
 
-	// Bind selectivizr to the ContentLoaded event. 
-	ContentLoaded(function() {
+	// Bind selectivizr to the ContentLoaded event.
+	contentLoaded(function() {
 		// Determine the "best fit" selector engine
 		for (var engine in selectorEngines) {
 			var members, member, context = win;
@@ -751,8 +753,8 @@ References:
 		}
 		init();
 	});
-	
-	
+
+
 	/*!
 	 * ContentLoaded.js by Diego Perini, modified for IE<9 only (to save space)
 	 *
@@ -770,7 +772,7 @@ References:
 
 	// @w window reference
 	// @f function reference
-	function ContentLoaded(fn) {
+	function contentLoaded(fn) {
 		if(win.jQuery){
 			return jQuery(fn);
 		}
@@ -802,10 +804,10 @@ References:
 
 			// If IE and not a frame
 			// continually check to see if the document is ready
-			var top = false;
+			var top;
 
 			try {
-				top = win.frameElement == null && root;
+				top = !win.frameElement && root;
 			} catch(e) {}
 
 			if ( top && top.doScroll ) {

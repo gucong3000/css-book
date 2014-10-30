@@ -1012,8 +1012,6 @@ Global.folding($('.g-combobox',topDocument));
 			onLinkFolder = onLinkList.siblings('.haschild'),
 			onFolder = onLink.parents('.haschild'),
 			onFolderList = onFolder.siblings('ul');
-		top.console.log(url)
-		top.console.log(onLink)
 
 		//选中链接
 		allLinks.removeClass('on');
