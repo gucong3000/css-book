@@ -305,6 +305,9 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		for (i in tabData) {
 			tbody = rowNum - tabData[i].length + 1;
 			tabData[i][tabData[i].length - 1].rowspan = tbody > 1 ? ' rowspan="' + tbody + '"' : "";
+			if (/^y\w+$/.test(tabData[i][tabData[i].length - 1].type)) {
+				tabData[i][tabData[i].length - 1].value = [tabData[i][tabData[i].length - 1].value[0]];
+			}
 		}
 		tbody = "";
 		for (i = 0; i < rowNum; i++) {
