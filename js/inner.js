@@ -928,6 +928,10 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol) ) {
 			btnRun = example.find('.g-btn-sure'),
 			selectivizr = (Global.isLocal ? "" : Global.rootPath) + "/js/selectivizr.js";
 
+		if(location.origin) {
+			selectivizr = selectivizr.replace(location.origin, "");
+		}
+
 		if (document.documentMode < 10) {
 			document.writeln("<script src=\"" + selectivizr + "\"></script>");
 		}
