@@ -224,6 +224,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 						delete data.stats.android[i];
 					}
 				}
+				// caniuse-db 版本 1.0.30000031 中，出现了Android的奇怪版本号TP，未搞懂，先过滤掉
+				delete data.stats.ie.TP;
 			}
 			propName = prop;
 		}
