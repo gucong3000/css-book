@@ -24,7 +24,7 @@ References:
 
 */
 
-/*global jQuery: false, PIE: false, StyleFix: false, ActiveXObject: false, styleMedia: false */
+/*global $: false, PIE: false, StyleFix: false, ActiveXObject: false, styleMedia: false, CSSStyleDeclaration: false, PrefixFree: false */
 
 (function(win) {
 	"use strict";
@@ -33,7 +33,7 @@ References:
 	var doc = document;
 	var root = doc.documentElement;
 	var xhr = "XMLHttpRequest";
-	var ieVersion = doc.querySelector ? doc.documentMode : (doc.compatMode === "CSS1Compat" ? xhr in win ? 7 : 6 : 5);
+	var ieVersion = doc.querySelector ? doc.documentMode : doc.compatMode === "CSS1Compat" ? xhr in win ? 7 : 6 : 5;
 
 	// String constants
 	var EMPTY_STRING						= "";
@@ -44,24 +44,9 @@ References:
 	if (ieVersion) {
 		toggleElementClass(root, "ie" + ieVersion, true);
 	}
-	var js_path								= (doc.scripts ? doc.scripts[doc.scripts.length - 1] : doc.querySelector("script:last-child")).getAttribute("src").replace(/[^\/]+$/, "");
+	var js_path								= doc.scripts || doc.querySelectorAll("script");
+		js_path								= js_path[js_path.length - 1].getAttribute("src").replace(/[^\/]+$/, "");
 	var ajaxCache							= {};
-	if (!(ieVersion > 5 && ieVersion < 10)) {
-		if(!win.StyleFix) {
-			loadScript(js_path + "prefixfree.min.js").onload = function(){
-				var addEvent = win.addEventListener,
-					tester = doc.createElement("div"),
-					process = StyleFix.process;
-				tester.style.cssText = "font-size:calc(1vmax*100000)";
-				if(!/vmax/.test(tester.style.fontSize)){
-					StyleFix.register(vunits);
-					addEvent("resize", process);
-				}
-				process();
-			};
-		}
-		return;
-	}
 
 	// an XMLHttpRequest object then we should get out now.
 	xhr = ieVersion < 7 ? new ActiveXObject("Microsoft.XMLHTTP") : new win[xhr]();
@@ -117,6 +102,34 @@ References:
 
 	// PIE
 	var pie_path							= win.PIE && "behavior" in PIE ? PIE.behavior : js_path.replace(RE_ORIGIN, "") + "PIE.htc";
+	function viewHeight(){
+		return win.innerHeight || root.clientHeight;
+	}
+
+	function viewWidth(){
+		return win.innerWidth || root.clientWidth;
+	}
+
+	function onresize(fn) {
+		var viewH = viewHeight(),
+			viewW = viewWidth();
+
+		function sizefn() {
+			var vh = viewHeight(),
+				vw = viewWidth();
+			if (viewH !== vh || viewW !== vw) {
+				viewH = vh;
+				viewW = vw;
+				fn();
+			}
+		}
+		if (win.addEventListener) {
+			win.addEventListener("resize", sizefn, true);
+			win.addEventListener("orientationchange", sizefn, true);
+		} else {
+			addEvent(win, "resize", sizefn);
+		}
+	}
 
 	function loadScript(src) {
 		var script = doc.createElement("script");
@@ -141,8 +154,8 @@ References:
 				css = ele[strRawCssText] || (ele[strRawCssText] = css);
 			}
 		}
-		var vh = (win.innerHeight || root.clientHeight) / 100,
-			vw = (win.innerWidth || root.clientWidth) / 100,
+		var vh = viewHeight() / 100,
+			vw = viewWidth() / 100,
 			viewport = {
 				max: Math.max(vh, vw),
 				min: Math.min(vh, vw),
@@ -182,7 +195,7 @@ References:
 				cssText = vunits(cssText);
 				if (ieVersion < 9) {
 					cssText = cssText.replace(/\b(\d+(\.\d+)?)rem\b/g, function(s, num) {
-						return (num * rem[1]) + rem[2];
+						return num * rem[1] + rem[2];
 					});
 					// call media.match.js see https://github.com/reubenmoes/media-match */
 					if (win.styleMedia) {
@@ -552,11 +565,11 @@ References:
 	}
 
 	// --[ loadStyleSheet() ]-----------------------------------------------
-	function loadStyleSheet( url ) {
+	function loadStyleSheet(url) {
 		var cssText = ajaxCache[url];
 
-		if (win.jQuery) {
-			cssText = jQuery.ajax(url, {
+		if (win.$) {
+			cssText = $.ajax(url, {
 				dataType: "text",
 				async: false
 			}).responseText;
@@ -705,8 +718,7 @@ References:
 								e.disabled = false;
 								e.$disabled = true;
 								e.disabled = true;
-							}
-							else {
+							} else {
 								e.$disabled = e.disabled;
 							}
 						}
@@ -716,44 +728,110 @@ References:
 		}
 	}
 
-	if(ieVersion < 8){
-		pie_path = "behavior: expression(window.PIE&&PIE.attach_ie67&&PIE.attach_ie67(this));";
-	} else if(loadStyleSheet(pie_path)) {
-		pie_path = "behavior: url(" + pie_path + ");";
-	} else {
-		pie_path = EMPTY_STRING;
+	function stylePropertyFix(property, prefixProperty) {
+		Object.defineProperty(CSSStyleDeclaration.prototype, property, {
+			get: function() {
+				return this[prefixProperty];
+			},
+			set: function(val) {
+				this[prefixProperty] = val;
+			},
+			enumerable: true
+		});
 	}
 
-	if(pie_path && !win.PIE){
-		js_path += "PIE_IE" + ( ieVersion < 9 ? "678" : "9" ) + ".js";
-		loadScript(js_path);
+	function fixFnPrefix(obj, fnName) {
+		var fn = obj[fnName];
+		if (fn && fn.apply) {
+			obj[fnName] = function() {
+				try {
+					if (PrefixFree.properties.indexOf(arguments[0]) >= 0) {
+						arguments[0] = PrefixFree.prefix + arguments[0];
+					}
+				} catch (ex) {}
+				return fn.apply(this, arguments);
+			};
+		}
 	}
 
-	// Determine the baseUrl and download the stylesheets
-	var baseTags = doc.getElementsByTagName("BASE");
-	var baseUrl = (baseTags.length > 0) ? baseTags[0].href : doc.location.href;
-	getStyleSheets();
+	function prefixInit() {
+		if (!StyleFix.fixed) {
+			StyleFix.fixed = 1;
+			var tester = doc.createElement("div"),
+				process = StyleFix.process;
+			tester.style.cssText = "font-size:calc(1vmax*1)";
+			if (!/vmax/.test(tester.style.fontSize)) {
+				StyleFix.register(vunits);
+				onresize(process);
+			}
+			contentLoaded(function() {
+				setTimeout(process, 0);
+			});
 
-	addEvent(win, "resize", setLengthUnits);
-
-	// Bind selectivizr to the ContentLoaded event.
-	contentLoaded(function() {
-		// Determine the "best fit" selector engine
-		for (var engine in selectorEngines) {
-			var members, member, context = win;
-			if (win[engine]) {
-				members = selectorEngines[engine].replace("*", engine).split(".");
-				while ((member = members.shift()) && (context = context[member])) {}
-				if (typeof context === "function") {
-					selectorMethod = context;
-					init();
-					return;
+			for (var i in CSSStyleDeclaration.prototype) {
+				if (/Property/.test(i)) {
+					fixFnPrefix(CSSStyleDeclaration.prototype, i);
 				}
 			}
+			PrefixFree.properties.forEach(function(property) {
+				stylePropertyFix(StyleFix.camelCase(property), PrefixFree.prefixProperty(property, true));
+			});
 		}
-		init();
-	});
+	}
 
+	if (ieVersion > 5 && ieVersion < 10) {
+		if (ieVersion > 8) {
+			stylePropertyFix("transform", "msTransform");
+			stylePropertyFix("transformOrigin", "msTransformOrigin");
+		} else {
+			if (ieVersion < 8) {
+				pie_path = "behavior: expression(window.PIE&&PIE.attach_ie67&&PIE.attach_ie67(this));";
+			} else {
+				pie_path = "behavior: url(" + pie_path + ");";
+			}
+		}
+
+		if (pie_path && !win.PIE) {
+			js_path += "PIE_IE" + (ieVersion < 9 ? "678" : "9") + ".js";
+			loadScript(js_path);
+		}
+		// Determine the baseUrl and download the stylesheets
+		var baseTags = doc.getElementsByTagName("BASE");
+		var baseUrl = baseTags.length > 0 ? baseTags[0].href : doc.location.href;
+		getStyleSheets();
+
+		onresize(setLengthUnits);
+
+		// Bind selectivizr to the ContentLoaded event.
+		contentLoaded(function() {
+			// Determine the "best fit" selector engine
+			for (var engine in selectorEngines) {
+				var members, member, context = win;
+				if (win[engine]) {
+					members = selectorEngines[engine].replace("*", engine).split(".");
+					while ((member = members.shift()) && (context = context[member])) {}
+					if (typeof context === "function") {
+						selectorMethod = context;
+						init();
+						return;
+					}
+				}
+			}
+			init();
+		});
+	} else {
+		js_path += "prefixfree.min.js";
+		if (win.StyleFix) {
+			prefixInit();
+		} else {
+			try {
+				eval.call(win, loadStyleSheet(js_path));
+				prefixInit();
+			} catch (ex) {
+				loadScript(js_path).onload = prefixInit;
+			}
+		}
+	}
 
 	/*!
 	 * ContentLoaded.js by Diego Perini, modified for IE<9 only (to save space)
@@ -773,34 +851,35 @@ References:
 	// @w window reference
 	// @f function reference
 	function contentLoaded(fn) {
-		if(win.jQuery){
-			return jQuery(fn);
+		if (win.$) {
+			return $(fn);
 		}
 		var isReady = false;
+
 		function completed() {
 			// readyState === "complete" is good enough for us to call the dom ready in oldIE
-			if ( !isReady ) {
+			if (!isReady) {
 				isReady = true;
 				fn();
 			}
 		}
-		if ( isDocComplete() ) {
+		if (isDocComplete()) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			setTimeout(completed);
 
 		// Standards-based browsers support DOMContentLoaded
-		} else if ( doc.addEventListener ) {
+		} else if (doc.addEventListener) {
 			// Use the handy event callback
-			doc.addEventListener( "DOMContentLoaded", completed, false );
+			doc.addEventListener("DOMContentLoaded", completed, false);
 
 		// If IE event model is used
 		} else {
 			// Ensure firing before onload, maybe late but safe also for iframes
-			doc.attachEvent( "onreadystatechange", function(){
-				if( isDocComplete() ){
+			doc.attachEvent("onreadystatechange", function() {
+				if (isDocComplete()) {
 					completed();
 				}
-			} );
+			});
 
 			// If IE and not a frame
 			// continually check to see if the document is ready
@@ -808,18 +887,17 @@ References:
 
 			try {
 				top = !win.frameElement && root;
-			} catch(e) {}
+			} catch (e) {}
 
-			if ( top && top.doScroll ) {
+			if (top && top.doScroll) {
 				(function doScrollCheck() {
-					if ( !isReady ) {
-
+					if (!isReady) {
 						try {
 							// Use the trick by Diego Perini
 							// http://javascript.nwbox.com/IEContentLoaded/
 							top.doScroll("left");
-						} catch(e) {
-							return setTimeout( doScrollCheck, 50 );
+						} catch (e) {
+							return setTimeout(doScrollCheck, 50);
 						}
 
 						// and execute any waiting functions
