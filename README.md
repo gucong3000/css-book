@@ -9,14 +9,24 @@ CSS参考手册
 
 ##版本更新
 
-###草案版本：v4.1.6(WD)
+###草案版本：v4.1.7(WD)
 
-CSS参考手册目前正在v4.1.6草案中。广泛接受[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)
+CSS参考手册目前正在v4.1.7草案中。广泛接受[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)
 
-<!-- * 排查了手册中的死链；
-* 修改了[list-style](http://css.doyoe.com/properties/list/list-style.htm)的语法描述； -->
 
-###最新版本：v4.1.5
+###最新版本：v4.1.6
+
+更新时间：2015.01.28
+
+* 修订了 [Positioning](http://css.doyoe.com/properties/positioning/index.htm) 模块的参考描述，使用新的浏览器兼容视图，增加部分移动浏览器支持；
+* 修订了 [Layout](http://css.doyoe.com/properties/layout/index.htm) 模块的参考描述，使用新的浏览器兼容视图，增加部分移动浏览器支持；
+* 排查了手册中的死链；
+* 修订了属性选择符 [E[att|="val"]](http://css.doyoe.com/selectors/attribute/att7.htm) 的参考描述和示例；
+* 修订了 [list-style](http://css.doyoe.com/properties/list/list-style.htm)的语法描述；
+* 新增了 [appearance](http://css.doyoe.com/properties/user-interface/appearance.htm)、 [pointer-events](http://css.doyoe.com/properties/user-interface/pointer-events.htm) 和 [E::placeholder](http://css.doyoe.com/selectors/pseudo-element/placeholder.htm) 参考；
+
+
+###上个版本：v4.1.5
 
 更新时间：2014.08.28
 
