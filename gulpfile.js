@@ -185,7 +185,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			"hsla": "css3-colors",
 			"hsl": "css3-colors",
 		},
-		regPropSub = /((-\w+)+|\(\))$/g,
+		regPropSub = /((-\w+)+|\(\))$/,
 		regPropS = /s$/,
 		tabData = {},
 		rowNum = 0,
@@ -223,7 +223,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 						delete data.stats.android[i];
 					}
 				}
-				// caniuse-db 版本 1.0.30000031 中，出现了Android的奇怪版本号TP，未搞懂，先过滤掉
+				// caniuse-db 版本 1.0.30000031 中，出现了IE的奇怪版本号TP，未搞懂，先过滤掉
 				delete data.stats.ie.TP;
 			}
 			propName = prop;
@@ -292,6 +292,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			tbody = [];
 			for (j in tabData[i]) {
 				tbody.push({
+					supportInfo: propName !== "viewport-units" && /#(\d+)/.test(j) ? (' <a href="#support' + RegExp.$1 + '">#' + RegExp.$1 + "</a>") : "",
 					className: ' class="' + classFix[j.substr(0, 1)] + '"',
 					prefix: /(-\w+-)/.test(j) ? (' <sup class="fix">' + RegExp.$1 + "</sup>") : "",
 					value: tabData[i][j],
@@ -306,8 +307,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		for (i in tabData) {
 			tbody = rowNum - tabData[i].length + 1;
 			tabData[i][tabData[i].length - 1].rowspan = tbody > 1 ? ' rowspan="' + tbody + '"' : "";
-			if (/^y\w+$/.test(tabData[i][tabData[i].length - 1].type)) {
-				tabData[i][tabData[i].length - 1].value = [tabData[i][tabData[i].length - 1].value[0]];
+			if (/^y\w*$/.test(tabData[i][tabData[i].length - 1].type) && tabData[i][tabData[i].length - 1].value.length > 1) {
+				tabData[i][tabData[i].length - 1].value = [tabData[i][tabData[i].length - 1].value[0] + "+"];
 			}
 		}
 		tbody = "";
@@ -315,7 +316,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			tbody += "<tr>";
 			for (j in status) {
 				if (tabData[j][i]) {
-					tbody += "<td" + (tabData[j][i].rowspan || "") + tabData[j][i].className + ">" + tabData[j][i].value.join("-") + tabData[j][i].prefix + "</td>";
+					tbody += "<td" + (tabData[j][i].rowspan || "") + tabData[j][i].className + ">" + tabData[j][i].value.join("-") + tabData[j][i].prefix + tabData[j][i].supportInfo + "</td>";
 				}
 			}
 			tbody += "</tr>";
