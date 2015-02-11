@@ -632,24 +632,32 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 				},
 				'color' : {
 					'index' : ['颜色(Color)','其它颜色值参考'],
+					'color' : ['&lt;color&gt;'],
 					'color-name' : ['Color Name'],
 					'hex' : ['HEX'],
 					'rgb' : ['RGB'],
 					'rgba' : ['RGBA'],
 					'hsl' : ['HSL'],
 					'hsla' : ['HSLA'],
-					'transparent' : []
+					'transparent' : [],
+					'currentColor' : []
 				},
 				'textual' : {
 					'index' : ['文本(Textual)','其它文本值参考'],
+					'inherit' : [],
+					'initial' : [],
 					'string' : ['&lt;string&gt;'],
 					'url' : ['&lt;url&gt;'],
 					'identifier' : ['&lt;identifier&gt;']
 				},
+				'content' : {
+					'index' : ['生成内容(Content)','其它生成内容值参考'],
+					'counter()' : [],
+					'counters()' : [],
+					'attr()' : []
+				},
 				'functional' : {
 					'index' : ['函数(Functional)','其它函数值参考'],
-					'counter()' : [],
-					'attr()' : [],
 					'calc()' : [],
 					'min()' : [],
 					'max()' : [],
@@ -657,6 +665,10 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 				},
 				'image' : {
 					'index' : ['图像(Image)','其它图像值参考'],
+					'image' : ['&lt;image&gt;'],
+					'image()' : [],
+					'image-set()' : [],
+					'gradient' : ['&lt;gradient&gt;'],
 					'linear-gradient()' : [],
 					'radial-gradient()' : [],
 					'repeating-linear-gradient()' : [],

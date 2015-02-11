@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>max()</title>
-<meta name="description" content="CSS3参考手册之: max()" />
-<meta name="keywords" content="max(), css3取值, css3, css3参考手册" />
+<title>initial</title>
+<meta name="description" content="CSS3参考手册之: initial" />
+<meta name="keywords" content="initial, css3取值, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,14 +19,14 @@
 		<span>&#187;</span>
 		<a href="../index.htm">取值与单位列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="values/functional" name="max()">函数值</a>
+		<a href="index.htm" id="category" rel="values/textual" name="initial">文本值</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
 		<span class="label">相关内容：</span>
 		<div class="g-combobox g-transition">
 			<a href="?" class="g-transition target">
-				<strong>其它函数值参考</strong>
+				<strong>其它文本值参考</strong>
 				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
 			</a>
 			<div class="g-transition list">
@@ -39,7 +39,7 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">max()</h1>
+		<h1 class="tit">initial</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
 		</ul>
@@ -47,19 +47,24 @@
 	</section>
 </header>
 <section id="bd">
-	<section id="syntax" class="g-mod g-attr">
+	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>用于比较数值的大小并取出最大的那个。</strong>
+			<strong>属性初始值。</strong>
 			<ul>
-				<li><em class="g-color-light">写本文档时尚无浏览器支持该max()</em>。</li>
+				<li>initial属于 <dfn>CSS-wide</dfn> 关键字，这表示所有的属性都可以接受该值。</li>
+				<li>如果你想重置某个属性为 User Agent 默认设置，那么就可以使用initial</li>
 				<li>
-					<em class="g-color-light">如何使用：</em>
+					<em class="g-color-light">正常工作的例子：</em>
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
-						<blockquote class="gquote-cont"><pre><code>div{font-size:max(30px, 3em);}
-div{width:max(10% + 20px, 300px);}
-</code></pre></blockquote>
+						<blockquote class="gquote-cont"><code><xmp>ul {
+	list-style: none;
+}
+.news-list {
+	list-style: initial;
+}</xmp></code></blockquote>
+						<p class="gquote-info">如上述代码，有可能ul会被reset掉list-style，如果你想某个地方需要默认定义，那么就可以直接设置为 initial</p>
 					</div>
 				</li>
 			</ul>
@@ -76,20 +81,29 @@ div{width:max(10% + 20px, 300px);}
 			<table class="g-data">
 				<thead>
 					<tr>
-						<th><span class="browser-ie">IE</span></th>
-						<th><span class="browser-firefox">Firefox</span></th>
-						<th><span class="browser-safari">Safari</span></th>
-						<th><span class="browser-chrome">Chrome</span></th>
-						<th><span class="browser-opera">Opera</span></th>
+						<th>IE</th>
+						<th>Firefox</th>
+						<th>Chrome</th>
+						<th>Safari</th>
+						<th>Opera</th>
+						<th>iOS Safari</th>
+						<th>Android Browser</th>
+						<th>Android Chrome</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td class="unsupport">6.0-11.0</td>
-						<td class="unsupport">4.0-34.0</td>
-						<td class="unsupport">4.0-8.0</td>
-						<td class="unsupport">4.0-39.0</td>
-						<td class="unsupport">15.0-24.0</td>
+						<td class="unsupport" rowspan="2">6.0-11.0</td>
+						<td class="unsupport">2.0-18.0</td>
+						<td class="support" rowspan="2">4.0+</td>
+						<td class="support" rowspan="2">3.1+</td>
+						<td class="support" rowspan="2">15.0+</td>
+						<td class="support" rowspan="2">3.2+</td>
+						<td class="support" rowspan="2">2.1+</td>
+						<td class="support" rowspan="2">18.0+</td>
+					</tr>
+					<tr>
+						<td class="support">19.0+</td>
 					</tr>
 				</tbody>
 			</table>

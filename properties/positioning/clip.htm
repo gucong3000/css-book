@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
 <title>clip</title>
@@ -51,8 +51,8 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>clip</strong>：<mark class="defaultvalue">auto</mark> | <a href="#dfn-syntax">&lt;shape&gt;</a></p>
-			<p id="dfn-syntax"><strong>&lt;shape&gt;</strong>：rect(<a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto) | <ins class="g-color-css3-new" title="css3">inset(<a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto)</ins></p>
+			<p><strong>clip</strong>：<mark class="defaultvalue">auto</mark> | <a href="#shape">&lt;shape&gt;</a></p>
+			<p id="shape"><strong>&lt;shape&gt;</strong>：rect(<a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto) | <ins class="g-color-css3-new" title="css3">inset(<a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto <a href="../../values/numeric/number.htm">&lt;number&gt;</a>|auto)</ins></p>
 			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
 			<p><strong>适用于</strong>：绝对定位元素</p>
 			<p><strong>继承性</strong>：无</p>
@@ -88,7 +88,7 @@
 		<div class="cont">
 			<strong>检索或设置对象的可视区域。区域外的部分是透明的。</strong>
 			<ul>
-				<p class="g-color-light">这个属性将被废弃，推荐使用 <a href="http://dev.w3.org/fxtf/css-masking-1/#propdef-clip-path" rel="external" class="external" target="_blank">clip-path</a> 代替，在过渡阶段，仍然会存在一段时间。</p>
+				<li class="g-color-light">这个属性将被废弃，推荐使用 <a href="http://dev.w3.org/fxtf/css-masking-1/#propdef-clip-path" rel="external" class="external" target="_blank">clip-path</a> 代替，在过渡阶段，仍然会存在一段时间。</li>
 				<li>必须将<a href="../positioning/position.htm">position</a>的值设为absolute或者fixed，此属性方可使用。</li>
 				<li>对应的脚本特性为<strong>clip</strong>。</li>
 			</ul>
@@ -158,13 +158,19 @@
 		<div class="cont">
 			<textarea cols="90" rows="10">
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
 <title>clip_CSS参考手册_web前端开发参考手册系列</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-.test{position:absolute;height:50px;line-height:50px;clip:rect(0 auto 35px 10px);background:#eee;}
+.test {
+	position: absolute;
+	height: 50px;
+	line-height: 50px;
+	clip: rect(0 auto 35px 10px);
+	background: #eee;
+}
 </style>
 </head>
 <body>
