@@ -198,6 +198,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		j,
 		k;
 
+	caniuse.data["border-radius"]["stats"]["safari"]["5"] = "y #1";
+
 	function getDate(prop) {
 		prop = propFix[prop] || prop;
 		data = caniuse.data[prop] || caniuse.data["css-" + prop];
@@ -285,9 +287,6 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 				} else {
 					tabData[i][j] = [tbody[0], tbody[tbody.length - 1]];
 				}
-			}
-			if (tabData[i].y) {
-				tabData[i].y = [tabData[i].y[0]];
 			}
 			tbody = [];
 			for (j in tabData[i]) {
