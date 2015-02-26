@@ -82,6 +82,7 @@ div{opacity:.5;} /* for IE9 and other browsers */</code></pre></blockquote>
 						<p class="gquote-info">以上2段代码的效果相同</p>
 					</div>
 				</li>
+				<li>元素定义了值小于1的opacity，将会产生局部层叠上下文。</li>
 				<li>对应的脚本特性为<strong>opacity</strong>。</li>
 			</ul>
 		</div>
@@ -153,9 +154,26 @@ div{opacity:.5;} /* for IE9 and other browsers */</code></pre></blockquote>
 <title>opacity_CSS参考手册_web前端开发参考手册</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-h1{margin:10px 0;font-size:16px;}
-.test{width:300px;height:150px;padding:10px;background:#050;}
-.test2{width:300px;height:150px;margin:-120px 0 0 50px;padding:10px;background:#000;filter:alpha(opacity=50);opacity:.5;color:#fff;}
+h1 {
+	margin: 10px 0;
+	font-size: 16px;
+}
+.test,
+.test2 {
+	width: 300px;
+	height: 150px;
+	padding: 10px;
+}
+.test {
+	background:#050;
+}
+.test2 {
+	margin: -120px 0 0 50px;
+	background: #000;
+	filter: alpha(opacity=50);
+	opacity: .5;
+	color: #fff;
+}
 </style>
 </head>
 <body>

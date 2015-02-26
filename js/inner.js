@@ -299,7 +299,8 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'font-weight' : [],
 					'font-size' : [],
 					'font-family' : [],
-					'font-stretch' : []
+					'font-stretch' : [],
+					'font-size-adjust' : []
 				},
 				text : {
 					'index' : ['字体(text)','其它文本属性参考'],
