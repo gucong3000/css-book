@@ -51,11 +51,11 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>tab-size</strong>：<a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></p>
+			<p><strong>tab-size</strong>：<a href="../../values/numeric/integer.htm">&lt;integer&gt;</a> | <a href="../../values/length/length.htm">&lt;length&gt;</a></p>
 			<p><strong>默认值</strong>：<mark class="defaultvalue">8</mark></p>
-			<p><strong>适用于</strong>：块级元素</p>
+			<p><strong>适用于</strong>：块容器</p>
 			<p><strong>继承性</strong>：有</p>
-			<p><strong>动画性</strong>：否</p>
+			<p><strong>动画性</strong>：当值为 <a href="../../values/length/length.htm">&lt;length&gt;</a> 时</p>
 			<p><strong>计算值</strong>：指定值</p>
 		</div>
 	</section>
@@ -65,6 +65,8 @@
 			<dl>
 				<dt><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a>：</dt>
 				<dd>用整数值指定制表符的长度。不允许负值。</dd>
+				<dt><a href="../../values/length/length.htm">&lt;length&gt;</a>：</dt>
+				<dd>用长度值指定制表符的长度。不允许负值。</dd>
 			</dl>
 		</div>
 	</section>
@@ -73,7 +75,8 @@
 		<div class="cont">
 			<strong>检索或设置对象中的制表符的长度。</strong>
 			<ul>
-				<li>该属性决定了制表符(U+0009)的宽度，整数代表空格(U+0020)的倍数(如：tab-size:4; 表示制表符宽度是4个空格的宽度)，不允许负数</li>
+				<li>该属性决定了制表符(U+0009)的宽度，整数代表空格(U+0020)的倍数(如：tab-size:4; 表示制表符宽度是4个空格的宽度)</li>
+				<li>只有当<a href="white-space.htm">white-space</a>的值为：<code class="incode">pre | pre-wrap</code>时，该属性的定义才有效</li>
 				<li>对应的脚本特性为<strong>tabSize</strong>。</li>
 			</ul>
 		</div>

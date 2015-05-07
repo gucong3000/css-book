@@ -317,7 +317,8 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'letter-spacing' : [],
 					'text-indent' : [],
 					'vertical-align' : [],
-					'line-height' : []
+					'line-height' : [],
+					'text-size-adjust' : []
 				},
 				'text-decoration' : {
 					'index' : ['文本装饰(Text Decoration)','其它文本装饰属性'],
@@ -494,7 +495,8 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'text-fill-color' : [],
 					'text-stroke' : [],
 					'text-stroke-width' : [],
-					'text-stroke-color' : []
+					'text-stroke-color' : [],
+					'tap-highlight-color' : []
 				}
 			},
 
