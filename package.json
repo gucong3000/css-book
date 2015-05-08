@@ -23,14 +23,14 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "opener": "^1.4.0",
-    "rimraf": "^2.2.8",
-    "iconv-lite": "^0.4.4",
-    "htmlparser": "^1.7.7",
-    "caniuse-db": "^1.0.30000081",
+    "caniuse-db": "^1.0.30000157",
     "gulp": "^3.8.11",
-    "gulp-replace": "^0.5.0",
-    "gulp-htmlhint": "0.0.9"
+    "gulp-htmlhint": "^0.1.1",
+    "gulp-replace": "^0.5.3",
+    "htmlparser": "^1.7.7",
+    "iconv-lite": "^0.4.8",
+    "opener": "^1.4.1",
+    "rimraf": "^2.3.3"
   },
   "scripts": {
     "build": "npm install && gulp"

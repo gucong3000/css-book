@@ -226,7 +226,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					}
 				}
 				// caniuse-db 版本 1.0.30000031 中，出现了IE的奇怪版本号TP，未搞懂，先过滤掉
-				delete data.stats.ie.TP;
+				delete data.stats.ie.Edge;
 			}
 			propName = prop;
 		}
@@ -266,6 +266,9 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			tabData[i] = {};
 			for (j in status[i]) {
 				tbody = status[i][j];
+				if (propName === "viewport-units") {
+					tbody = tbody.replace(/(\s+#\d+)+$/, "");
+				}
 				if (!/\bu\b/i.test(tbody)) {
 					tbody = tbody.replace(/\bx\b/, function() {
 						return "-" + getPrefix(i, j) + "-";
@@ -291,7 +294,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 			tbody = [];
 			for (j in tabData[i]) {
 				tbody.push({
-					supportInfo: propName !== "viewport-units" && /#(\d+)/.test(j) ? (' <a href="#support' + RegExp.$1 + '">#' + RegExp.$1 + "</a>") : "",
+					supportInfo: /#(\d+)/.test(j) ? (' <a href="#support' + RegExp.$1 + '">#' + RegExp.$1 + "</a>") : "",
 					className: ' class="' + classFix[j.substr(0, 1)] + '"',
 					prefix: /(-\w+-)/.test(j) ? (' <sup class="fix">' + RegExp.$1 + "</sup>") : "",
 					value: tabData[i][j],
