@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>empty-cells</title>
-<meta name="description" content="CSS3参考手册之: empty-cells" />
-<meta name="keywords" content="empty-cells, css3, css3参考手册" />
+<title>text-size-adjust</title>
+<meta name="description" content="CSS3参考手册之:text-size-adjust" />
+<meta name="keywords" content="text-size-adjust, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,14 +19,14 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/table" name="empty-cells">表格属性</a>
+		<a href="index.htm" id="category" rel="properties/text" name="text-size-adjust">文本属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
 		<span class="label">相关内容：</span>
 		<div class="g-combobox g-transition">
 			<a href="?" class="g-transition target">
-				<strong>其它表格属性</strong>
+				<strong>其它文本属性参考</strong>
 				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
 			</a>
 			<div class="g-transition list">
@@ -39,9 +39,9 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">empty-cells</h1>
+		<h1 class="tit">text-size-adjust</h1>
 		<ul class="info">
-			<li><strong>版本：CSS2</strong></li>
+			<li><strong>版本：CSS3</strong></li>
 			<li>媒体：视觉</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
@@ -51,11 +51,11 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>empty-cells</strong>：hide | show</p>
-			<p><strong>默认值</strong>：<mark class="defaultvalue">show</mark></p>
-			<p><strong>适用于</strong>：table系元素</p>
+			<p><strong>text-size-adjust</strong>：auto | none | <a href="../../values/numeric/percentage.htm">&lt;percentage&gt;</a></p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
+			<p><strong>适用于</strong>：所有元素</p>
 			<p><strong>继承性</strong>：有</p>
-			<p><strong>动画性</strong>：否</p>
+			<p><strong>动画性</strong>：当取值为<a href="../../values/numeric/percentage.htm">&lt;percentage&gt;</a>时</p>
 			<p><strong>计算值</strong>：指定值</p>
 		</div>
 	</section>
@@ -63,21 +63,23 @@
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
 			<dl>
-				<dt>hide：</dt>
-				<dd>指定当表格的单元格无内容时，隐藏该单元格的边框。</dd>
-				<dt>show：</dt>
-				<dd>指定当表格的单元格无内容时，显示该单元格的边框。</dd>
+				<dt>auto：</dt>
+				<dd>文本大小根据设备尺寸进行调整。</dd>
+				<dt>none：</dt>
+				<dd>文本大小不会根据设备尺寸进行调整。</dd>
+				<dt><a href="../../values/numeric/percentage.htm">&lt;percentage&gt;</a>：</dt>
+				<dd>用百分比来指定文本大小在设备尺寸不同的情况下如何调整。</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>设置或检索当表格的单元格无内容时，是否显示该单元格的边框。</strong>
+			<strong>检索或设置移动端页面中对象文本的大小调整。</strong>
 			<ul>
-				<li><em class="g-color-light">IE7及以下浏览器中默认隐藏无内容的单元格边框，要想使其获得与show参数值相同的效果，可以变相给该空单元格加个占位且不可见的元素，例如全角空格或&ampnbsp;等等。</em></li>
-				<li>只有当表格边框独立（即 &lt;' <a href="border-collapse.htm">border-collapse</a> '&gt; 属性等于<code class="incode">separate</code>时）此属性才起作用。</li>
-				<li>对应的脚本特性为<strong>emptyCells</strong>。</li>
+				<li>该属性只在移动设备上生效；</li>
+				<li>如果你的页面没有定义<code class="incode">meta viewport</code>，此属性定义将无效；</li>
+				<li>对应的脚本特性为<strong>textSizeAdjust</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -105,18 +107,15 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td rowspan="2"><strong>Basic Support</strong></td>
-						<td class="unsupport">6.0-7.0</td>
-						<td class="support" rowspan="2">2.0+</td>
-						<td class="support" rowspan="2">4.0+</td>
-						<td class="support" rowspan="2">6.0+</td>
-						<td class="support" rowspan="2">15.0+</td>
-						<td class="support" rowspan="2">6.0+</td>
-						<td class="support" rowspan="2">2.1+</td>
-						<td class="support" rowspan="2">18.0+</td>
-					</tr>
-					<tr>
-						<td class="support">8.0+</td>
+						<td><strong>Basic Support</strong></td>
+						<td class="unsupport">6.0-11.0</td>
+						<td class="unsupport">2.0-40.0</td>
+						<td class="unsupport">4.0-45.0</td>
+						<td class="unsupport">6.0-8.0</td>
+						<td class="unsupport">15.0-29.0</td>
+						<td class="support">6.0-8.3 <sup class="fix">-webkit-</sup></td>
+						<td class="unsupport">2.1-4.4.4</td>
+						<td class="unsupport">18.0-42.0</td>
 					</tr>
 				</tbody>
 			</table>
@@ -130,56 +129,19 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>empty-cells_CSS参考手册_web前端开发参考手册系列</title>
+<title>text-size-adjust_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-h1{font-size:16px;font-family:Arial;}
-.test{empty-cells:show;}
-.test2{empty-cells:hide;}
+.demo2 {
+	-webkit-text-size-adjust: auto;
+}
 </style>
 </head>
 <body>
-<h1>show:</h1>
-<table border="1" class="test">
-<tbody>
-	<tr>
-		<td>序号</td>
-		<td>姓名</td>
-		<td>年龄</td>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Joy</td>
-		<td>26</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Kate</td>
-		<td></td>
-	</tr>
-</tbody>
-</table>
-
-<h1>hide:</h1>
-<table border="1" class="test2">
-<tbody>
-	<tr>
-		<td>序号</td>
-		<td>姓名</td>
-		<td>年龄</td>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Joy</td>
-		<td>26</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Kate</td>
-		<td></td>
-	</tr>
-</tbody>
-</table>
+	<div class="demo1">
+		<p>请在移动设备上查看本例，设备尺寸的变化将会使得文本大小变化</p>
+	</div>
 </body>
 </html>
 			</textarea>
