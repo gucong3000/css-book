@@ -953,8 +953,7 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 	//运行示例代码以及相关操作
 	(function() {
 		var example = $("#example"),
-			txtExp = example.find("textarea"),
-			content = txtExp.val(),
+			content = example.find("textarea"),
 			btnRun = example.find(".g-btn-sure"),
 			selectivizr = (Global.isLocal ? "" : Global.rootPath) + "/js/selectivizr.js";
 
@@ -988,21 +987,14 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					click: function(e) {
 						e.preventDefault();
 						var codeWin = window.open();
-						codeWin.document.write(content);
+						codeWin.document.write(content.val());
 						codeWin.document.close();
 					}
 				});
 			}
-			if (content) {
-				content = content.replace(/(\n<\/\w+>)?\s*$/, "\n<script src=\"" + selectivizr + "\"></script>$1");
-				if (/selectivizr/i.test($(".support-info").text())) {
-					txtExp.val(content);
-				}
-			}
+
 			//复制代码
-			Global.copy(example.find(".g-btn-copy"), function() {
-				return txtExp.val();
-			});
+			Global.copy(example.find(".g-btn-copy"), content.val());
 		}
 	})();
 
