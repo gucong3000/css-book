@@ -496,7 +496,8 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'text-stroke' : [],
 					'text-stroke-width' : [],
 					'text-stroke-color' : [],
-					'tap-highlight-color' : []
+					'tap-highlight-color' : [],
+					'user-drag' : []
 				}
 			},
 

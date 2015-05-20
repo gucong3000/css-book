@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>tap-highlight-color</title>
-<meta name="description" content="CSS3参考手册之: tap-highlight-color" />
-<meta name="keywords" content="tap-highlight-color, css3, css3参考手册" />
+<title>user-drag</title>
+<meta name="description" content="CSS3参考手册之: user-drag" />
+<meta name="keywords" content="user-drag, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,7 +19,7 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/only-webkit" name="tap-highlight-color">Only Webkit属性</a>
+		<a href="index.htm" id="category" rel="properties/only-webkit" name="user-drag">Only Webkit属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
@@ -39,10 +39,10 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">tap-highlight-color</h1>
+		<h1 class="tit">user-drag</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>媒体：视觉</li>
+			<li>媒体：互动</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -51,11 +51,11 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>tap-highlight-color</strong>：<a href="../../values/color/color.htm">&lt;color&gt;</a></p>
-			<p><strong>默认值</strong>：<mark class="defaultvalue">由user agent决定</mark></p>
+			<p><strong>user-drag</strong>：auto | element | none</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
 			<p><strong>适用于</strong>：所有元素</p>
 			<p><strong>继承性</strong>：有</p>
-			<p><strong>动画性</strong>：是</p>
+			<p><strong>动画性</strong>：否</p>
 			<p><strong>计算值</strong>：指定值</p>
 		</div>
 	</section>
@@ -63,19 +63,21 @@
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
 			<dl>
-				<dt><a href="../../values/color/color.htm">&lt;color&gt;</a>：</dt>
-				<dd>指定颜色。</dd>
+				<dt>auto：</dt>
+				<dd>使用默认的拖拽行为，这种情况只有图片和链接可以被拖拽。</dd>
+				<dt>element：</dt>
+				<dd>整个元素而非它的内容可拖拽。</dd>
+				<dt>none：</dt>
+				<dd>元素不能被拖动。在通过选中后可拖拽。</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>设置或检索对象的轻按时高亮。</strong>
+			<strong>设置或检索一个元素可以被拖拽，而不它的内容。</strong>
 			<ul>
-				<li>当用户轻按一个链接或者JavaScript可点击元素时给元素覆盖一个高亮色</li>
-				<li>如果想取消这个高亮，将值设置为全透明即可，比如<code class="incode">transparent</code></li>
-				<li>对应的脚本特性为<strong>textHighlightColor</strong>。</li>
+				<li>对应的脚本特性为<strong>userDrag</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -106,12 +108,12 @@
 						<td><strong>Basic Support</strong></td>
 						<td class="unsupport">6.0-11.0</td>
 						<td class="unsupport">2.0-40.0</td>
-						<td class="unsupport">4.0-45.0</td>
-						<td class="unsupport">6.0-8.0</td>
-						<td class="unsupport">15.0-29.0</td>
-						<td class="support">6.0-8.3 <sup class="fix">-webkit-</sup></td>
-						<td class="support">2.1-4.4.4 <sup class="fix">-webkit-</sup></td>
-						<td class="support">18.0-42.0 <sup class="fix">-webkit-</sup></td>
+						<td class="support">4.0-45.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">6.0-8.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">15.0-29.0<sup class="fix">-webkit-</sup></td>
+						<td class="unsupport">6.0-8.3</td>
+						<td class="unsupport">2.1-4.4.4</td>
+						<td class="unsupport">18.0-42.0</td>
 					</tr>
 				</tbody>
 			</table>
@@ -125,28 +127,38 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>tap-highlight-color_CSS参考手册_web前端开发参考手册系列</title>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+<title>user-drag_CSS参考手册_web前端开发参考手册系列</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-.test {
-	display: block;
-	margin: 5px;
-	padding: 10px;
-	border: 1px solid #aaa;
-	-webkit-user-select: none;
+img {
+    width: 100px;
+    height: 100px;
 }
-.demo1 {
-	-webkit-tap-highlight-color: red;
+.element {
+    -webkit-user-drag: element;
+    cursor: move;
+    -webkit-user-select: none;
 }
-.demo2 {
-	-webkit-tap-highlight-color: red;
+.none {
+    -webkit-user-drag: none;
 }
 </style>
 </head>
 <body>
-	<a href="#" class="test demo1">请在移动设备上查看本例</a>
-	<label class="test demo2"><input type="checkbox" />请在移动设备上查看本例</label>
+<dl>
+    <dt>auto</dt>
+    <dd><a href="#">我是一个链接</a></dd>
+    <dd><img src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
+    <dd>我是一些纯文字</dd>
+    <dt>element</dt>
+    <dd class="element"><a href="#">我是一个链接</a></dd>
+    <dd class="element"><img src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
+    <dd class="element">我是一些纯文字</dd>
+    <dt>none</dt>
+    <dd><a class="none" href="#">我是一个链接</a></dd>
+    <dd><img class="none" src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
+    <dd class="none">我是一些纯文字</dd>
+</dl>
 </body>
 </html>
 			</textarea>
