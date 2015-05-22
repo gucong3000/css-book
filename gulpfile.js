@@ -123,19 +123,16 @@ function compare(v1, v2) {
 	v2 = convert(v2);
 	for (var diff = 0, i = 0;
 		(i < v1.length || i < v2.length) && diff === 0; i++) {
-		diff = parseNum(v1[i]) - parseNum(v2[i]);
+		diff = (v1[i] || 0) - (v2[i] || 0);
 	}
 	return diff;
 }
 
 // 将版本号按小数点分割为数组
 function convert(ver) {
-	return ver.toString().split(".");
-}
-
-// 将字符串转为数字
-function parseNum(num) {
-	return parseInt(num) || 0;
+	return /Edge/.test(ver) ? [12] : ver.toString().split(".").map(function(subVer) {
+		return +subVer || 0
+	});
 }
 
 // 使用caniuse.com数据自动生成兼容性图表
@@ -199,7 +196,19 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		k;
 
 	caniuse.data["border-radius"]["stats"]["safari"]["5"] = "y #1";
-
+	/*
+		caniuse.agents.edge = {
+			"browser": "Edge",
+			"abbr": "Edge.",
+			"prefix": "webkit",
+			"type": "desktop",
+			"usage_global": {
+				"12": 0
+			},
+			"versions": caniuse.agents.ie.versions.slice(0)
+		};
+		caniuse.agents.edge.versions[40] = 12;
+	*/
 	function getDate(prop) {
 		prop = propFix[prop] || prop;
 		data = caniuse.data[prop] || caniuse.data["css-" + prop];
@@ -225,8 +234,13 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 						delete data.stats.android[i];
 					}
 				}
-				// caniuse-db 版本 1.0.30000031 中，出现了IE的奇怪版本号TP，未搞懂，先过滤掉
+				// caniuse-db 微软新版浏览器Edge，我认为不该归为IE，所以删除
+				// if (data.stats.ie.Edge) {
+				// 	data.stats.edge = {
+				// 		12: data.stats.ie.Edge
+				// 	}
 				delete data.stats.ie.Edge;
+				// }
 			}
 			propName = prop;
 		}
