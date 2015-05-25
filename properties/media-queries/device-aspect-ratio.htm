@@ -42,7 +42,7 @@
 		<h1 class="tit">Media Queries: device-aspect-ratio</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>是否接受min/max：是</li>
+			<li>接受min/max：是</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -69,11 +69,12 @@
 			<strong>定义输出设备的屏幕可见宽度与高度的比率。</strong>
 			<ul>
 				<li>如常讲的显示器屏幕比率：4/3, 16/9, 16/10</li>
-				<li>本特性接受min和max前缀，因此可以派生出<em class="g-color-light">min-device-aspect-ratio</em>和<em class="g-color-light">max-device-aspect-ratio</em>两个媒体特性。</li>
-				<li class="gquote">
-					<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
-					<blockquote class="gquote-cont"><pre><code>@media screen and (device-aspect-ratio:4/3){ … }
-@import url(example.css) screen and (min-device-aspect-ratio:4/3);</code></pre></blockquote>
+				<li>本特性接受min和max前缀，因此可以派生出<em class="g-color-light">min-device-aspect-ratio</em>和<em class="g-color-light">max-device-aspect-ratio</em>两个媒体特性。
+					<div class="gquote">
+						<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
+						<blockquote class="gquote-cont"><code><xmp>@media screen and (device-aspect-ratio:4/3){ … }
+@import url(example.css) screen and (min-device-aspect-ratio:4/3);</xmp></code></blockquote>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -140,7 +141,7 @@
 			</table>
 			<!-- compatible:end -->
 			<ol class="support-info">
-				<li>通过<a href="http://gucong3000.github.io/selectivizr/" class="external" target="_blank">selectivizr</a>，IE6+也可支持。本页下方的示例已使用此方案。</li>
+				<li id="support1">不支持嵌套媒体查询。</li>
 			</ol>
 		</div>
 	</section>

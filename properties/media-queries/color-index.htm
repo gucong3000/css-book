@@ -42,7 +42,7 @@
 		<h1 class="tit">Media Queries: color-index</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>是否接受min/max：是</li>
+			<li>接受min/max：是</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -68,12 +68,13 @@
 		<div class="cont">
 			<strong>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</strong>
 			<ul>
-				<li>本特性接受min和max前缀，因此可以派生出<em class="g-color-light">min-color-index</em>和<em class="g-color-light">max-color-index</em>两个媒体特性。</li>
-				<li class="gquote">
-					<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
-					<blockquote class="gquote-cont"><pre><code>@media screen and (color-index){ … }
+				<li>本特性接受min和max前缀，因此可以派生出<em class="g-color-light">min-color-index</em>和<em class="g-color-light">max-color-index</em>两个媒体特性。
+					<div class="gquote">
+						<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
+						<blockquote class="gquote-cont"><code><xmp>@media screen and (color-index){ … }
 @import url(example.css) screen and (min-color-index:1);
-&lt;link media="screen and (color-index:0)" rel="stylesheet" href="example.css" /&gt;</code></pre></blockquote>
+<link media="screen and (color-index:0)" rel="stylesheet" href="example.css" /></xmp></code></blockquote>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -140,7 +141,7 @@
 			</table>
 			<!-- compatible:end -->
 			<ol class="support-info">
-				<li>通过<a href="http://gucong3000.github.io/selectivizr/" class="external" target="_blank">selectivizr</a>，IE6+也可支持。本页下方的示例已使用此方案。</li>
+				<li id="support1">不支持嵌套媒体查询。</li>
 			</ol>
 		</div>
 	</section>
@@ -156,7 +157,7 @@
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com" />
 <meta name="copyright" content="www.doyoe.com" />
 <style>
-@media screen and (color-index){
+@media screen and (min-color-index:0){
 	body{color:#f00;}
 }
 </style>

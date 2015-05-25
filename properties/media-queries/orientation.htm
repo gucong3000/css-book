@@ -42,7 +42,7 @@
 		<h1 class="tit">Media Queries: orientation</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>是否接受min/max：否</li>
+			<li>媒体：视觉</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -52,6 +52,7 @@
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
 			<p><strong>orientation</strong>：portrait | landscape</p>
+			<p><strong>接受min/max前缀</strong>：是</p>
 		</div>
 	</section>
 	<section id="value" class="g-mod g-attr">
@@ -70,11 +71,12 @@
 		<div class="cont">
 			<strong>定义输出设备中的页面可见区域高度是否大于或等于宽度。</strong>
 			<ul>
-				<li>本特性不接受min和max前缀。</li>
-				<li class="gquote">
-					<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
-					<blockquote class="gquote-cont"><pre><code>@media screen and (orientation:portrait){ … }
+				<li>本特性不接受min和max前缀。
+					<div class="gquote">
+						<p class="gquote-tit"><strong>简单列举几个应用示例：</strong></p>
+						<blockquote class="gquote-cont"><pre><code>@media screen and (orientation:portrait){ … }
 @import url(example.css) screen and (orientation:landscape);</code></pre></blockquote>
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -141,7 +143,7 @@
 			</table>
 			<!-- compatible:end -->
 			<ol class="support-info">
-				<li>通过<a href="http://gucong3000.github.io/selectivizr/" class="external" target="_blank">selectivizr</a>，IE6+也可支持。本页下方的示例已使用此方案。</li>
+				<li id="support1">不支持嵌套媒体查询。</li>
 			</ol>
 		</div>
 	</section>
@@ -156,13 +158,23 @@
 <title>media features orientation_CSS参考手册_web前端开发参考手册系列</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-@media not screen and (orientation:portrait){
-	body{color:#f00;}
+.test::after {
+	color: red;
+}
+@media screen and (orientation: portrait){
+	.test::after {
+		content: "竖屏";
+	}
+}
+@media screen and (orientation: landscape){
+	.test::after {
+		content: "横屏";
+	}
 }
 </style>
 </head>
 <body>
-<div class="test">当输出设备中的页面可见宽度大于高度时，本行文字显示为红色</div>
+<div class="test">你现在是：</div>
 </body>
 </html>
 			</textarea>
