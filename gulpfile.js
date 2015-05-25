@@ -287,9 +287,12 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					tbody = tbody.replace(/\bx\b/, function() {
 						return "-" + getPrefix(i, j) + "-";
 					});
-					if (propName === "transforms2d" && tbody === "y") {
+
+					// opera做数据特殊处理
+					if (i === "opera" && j >= 13 && tbody === "y") {
 						tbody += getPrefix(i, j);
 					}
+
 					if (tabData[i][tbody]) {
 						tabData[i][tbody].push(j)
 					} else {
@@ -297,6 +300,13 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					}
 				}
 			}
+
+			// opera做数据特殊处理
+			if (i === "opera" && !tabData[i]["y -webkit-"] && tabData[i].y) {
+				tabData[i].y = tabData[i].y.concat(tabData[i]["ywebkit"]);
+				delete tabData[i]["ywebkit"];
+			}
+
 			for (j in tabData[i]) {
 				tbody = tabData[i][j].join(",").split(/\s*[,-]\s*/g).sort(compare);
 				if (tbody.length === 1) {
