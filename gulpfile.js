@@ -224,7 +224,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 				data.stats.firefox = JSON.parse(JSON.stringify(data.stats.firefox).replace(/"a\b[^"]*/g, "\"n"));
 			} else {
 				if (/^(vw|vh|vmin|(repeating-)?linear-gradient\(\)|columns|column(-\w+)*)$/.test(propName)) {
-					data = JSON.parse(JSON.stringify(data).replace(/"a\b/g, "\"y"));
+					data = JSON.parse(JSON.stringify(data).replace(/"a\b/g, "\"y").replace(/\s*\#\d\"/g, "\""));
 				} else if (/^(vmax|(repeating-)?radial-gradient\(\))$/.test(propName)) {
 					data = JSON.parse(JSON.stringify(data).replace(/"a\b[^"]*/g, "\"n"));
 				}
