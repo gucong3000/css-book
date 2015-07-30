@@ -23,7 +23,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "caniuse-db": "^1.0.30000204",
+    "caniuse-db": "^1.0.30000247",
     "gulp": "^3.9.0",
     "gulp-htmlhint": "^0.1.1",
     "gulp-replace": "^0.5.3",

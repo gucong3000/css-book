@@ -196,19 +196,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		k;
 
 	caniuse.data["border-radius"]["stats"]["safari"]["5"] = "y #1";
-	/*
-		caniuse.agents.edge = {
-			"browser": "Edge",
-			"abbr": "Edge.",
-			"prefix": "webkit",
-			"type": "desktop",
-			"usage_global": {
-				"12": 0
-			},
-			"versions": caniuse.agents.ie.versions.slice(0)
-		};
-		caniuse.agents.edge.versions[40] = 12;
-	*/
+
 	function getDate(prop) {
 		prop = propFix[prop] || prop;
 		data = caniuse.data[prop] || caniuse.data["css-" + prop];
@@ -234,13 +222,6 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 						delete data.stats.android[i];
 					}
 				}
-				// caniuse-db 微软新版浏览器Edge，我认为不该归为IE，所以删除
-				// if (data.stats.ie.Edge) {
-				// 	data.stats.edge = {
-				// 		12: data.stats.ie.Edge
-				// 	}
-				delete data.stats.ie.Edge;
-				// }
 			}
 			propName = prop;
 		}
