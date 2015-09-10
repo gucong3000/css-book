@@ -103,8 +103,8 @@
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
 						<blockquote class="gquote-cont"><code><xmp>@supports ( box-shadow: 2px 2px ) or
-          ( -moz-box-shadow: 2px 2px ) or
-          ( -webkit-box-shadow: 2px 2px ) {
+		( -moz-box-shadow: 2px 2px ) or
+		( -webkit-box-shadow: 2px 2px ) {
 	.demo {
 		-moz-box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
 		-webkit-box-shadow: 2px 2px 0 rgba(0, 0, 0, .3);
@@ -173,26 +173,26 @@
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
 @supports ( display: flex ) {
-    body {
-        display: flex;
-    }
-    #aside {
-        width: 210px;
-    }
-    #main {
-        flex: auto;
-    }
+	body {
+		display: flex;
+	}
+	#aside {
+		width: 210px;
+	}
+	#main {
+		flex: auto;
+	}
 }
 
 @supports not ( display: flex ) {
-    #aside {
-        float: left;
-        width: 210px;
-    }
-    #main {
-        overflow: hidden;
-        *zoom: 1;
-    }
+	#aside {
+		float: left;
+		width: 210px;
+	}
+	#main {
+		overflow: hidden;
+		*zoom: 1;
+	}
 }
 </style>
 </head>
