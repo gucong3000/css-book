@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>animation-direction</title>
-<meta name="description" content="CSS3 animation-direction属性用于检索或设置对象动画在循环中是否反向运动" />
-<meta name="keywords" content="animation-direction, css3, css3参考手册" />
+<title>perspective</title>
+<meta name="description" content="CSS3参考手册之: perspective" />
+<meta name="keywords" content="perspective, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,14 +19,14 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/animation" name="animation-direction">动画属性</a>
+		<a href="index.htm" id="category" rel="properties/transform" name="perspective">变换属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
 		<span class="label">相关内容：</span>
 		<div class="g-combobox g-transition">
 			<a href="?" class="g-transition target">
-				<strong>其它动画属性参考</strong>
+				<strong>其它变换属性参考</strong>
 				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
 			</a>
 			<div class="g-transition list">
@@ -39,10 +39,10 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">animation-direction</h1>
+		<h1 class="tit">perspective</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>2015.8.13</li>
+			<li>2015.8.11</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -51,13 +51,12 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>animation-direction</strong>：<a href="#single-animation-direction">&lt;single-animation-direction&gt;</a>[,<a href="#single-animation-direction">&lt;single-animation-direction&gt;</a>]*</p>
-			<p id="single-animation-direction"><strong>&lt;single-animation-direction&gt;</strong> = normal | reverse | alternate | alternate-reverse</p>
-			<p><strong>默认值</strong>：<mark class="defaultvalue">normal</mark></p>
-			<p><strong>适用于</strong>：所有元素，包含伪对象:after和:before</p>
+			<p><strong>perspective</strong>：none | <a href="../../values/length/index.htm">&lt;length&gt;</a></p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">none</mark></p>
+			<p><strong>适用于</strong>：变换元素</p>
 			<p><strong>继承性</strong>：无</p>
-			<p><strong>动画性</strong>：否</p>
-			<p><strong>计算值</strong>：指定值</p>
+			<p><strong>动画性</strong>：当值为<a href="../../values/length/index.htm">&lt;length&gt;</a>时</p>
+			<p><strong>计算值</strong>：绝对长度或「none」</p>
 			<p><strong>媒体</strong>：视觉</p>
 		</div>
 	</section>
@@ -65,24 +64,20 @@
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
 			<dl>
-				<dt>normal：</dt>
-				<dd>正常方向</dd>
-				<dt>reverse：</dt>
-				<dd>反方向运行</dd>
-				<dt>alternate：</dt>
-				<dd>动画先正常运行再反方向运行，并持续交替运行</dd>
-				<dt>alternate-reverse：</dt>
-				<dd>动画先反运行再正方向运行，并持续交替运行</dd>
+				<dt>none：</dt>
+				<dd>不指定透视</dd>
+				<dt><a href="../../values/length/index.htm">&lt;length&gt;</a>：</dt>
+				<dd>指定观察者距离「z=0」平面的距离，为元素及其内容应用透视变换。不允许负值</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>检索或设置对象动画在循环中是否反向运动</strong>
+			<strong>指定观察者与「z=0」平面的距离，使具有三维位置变换的元素产生透视效果。「z&gt;0」的三维元素比正常大，而「z&lt;0」时则比正常小，大小程度由该属性的值决定。</strong>
 			<ul>
-				<li>如果提供多个属性值，以逗号进行分隔。</li>
-				<li>对应的脚本特性为<strong>animationDirection</strong>。</li>
+				<li>当该属性值为「非none」时，元素将会创建局部堆叠上下文。</li>
+				<li>对应的脚本特性为<strong>perspective</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -94,7 +89,6 @@
 				<li><span class="unsupport">红色</span> = 不支持</li>
 				<li><span class="partsupport">粉色</span> = 部分支持</li>
 			</ul>
-			<!-- compatible:start -->
 			<table class="g-data">
                 <thead>
                     <tr>
@@ -113,34 +107,32 @@
                     <tr>
                         <td rowspan="3"><strong>Basic Support</strong></td>
                         <td class="unsupport">6.0-9.0</td>
-                        <td class="unsupport">2.0-4.0</td>
-                        <td class="support">4.0-42.0<sup class="fix">-webkit-</sup></td>
+                        <td class="unsupport">2.0-9.0</td>
+                        <td class="unsupport">4.0-11.0</td>
                         <td class="support">6.0-8.0<sup class="fix">-webkit-</sup></td>
-                        <td class="support">15.0-29.0<sup class="fix">-webkit-</sup></td>
+                        <td class="support">15.0-22.0<sup class="fix">-webkit-</sup></td>
                         <td class="support">6.0-8.4<sup class="fix">-webkit-</sup></td>
-                        <td class="partsupport">2.1-3.0<sup class="fix">-webkit-</sup> <sup><a href="#support1">#1</a></sup></td>
-                        <td class="support" rowspan="3">18.0-42.0<sup class="fix">-webkit-</sup></td>
+                        <td class="unsupport">2.1-2.3</td>
+                        <td class="support">18.0-34.0<sup class="fix">-webkit-</sup></td>
                     </tr>
                     <tr>
-                        <td class="support" rowspan="2">10.0+</td>
-                        <td class="support">5.0-15.0<sup class="fix">-moz-</sup></td>
-                        <td class="support" rowspan="2">43.0+</td>
+                        <td class="support">10.0-11.0<sup class="fix">-ms-</sup></td>
+                        <td class="support">10.0-15.0<sup class="fix">-moz-</sup></td>
+                        <td class="support">12.0-35.0<sup class="fix">-webkit-</sup></td>
                         <td class="support" rowspan="2">9.0+</td>
-                        <td class="support" rowspan="2">30.0+</td>
+                        <td class="support" rowspan="2">23.0+</td>
                         <td class="support" rowspan="2">9.0+</td>
-                        <td class="support" rowspan="2">4.0-40.0<sup class="fix">-webkit-</sup></td>
+                        <td class="support">3.0-4.4.4<sup class="fix">-webkit-</sup></td>
+                        <td class="support" rowspan="2">35.0+</td>
                     </tr>
                     <tr>
+                        <td class="support">Edge</td>
                         <td class="support">16.0+</td>
+                        <td class="support">36.0+</td>
+                        <td class="support">40.0+</td>
                     </tr>
                 </tbody>
             </table>
-			<!-- compatible:end -->
-			<ol class="support-info">
-                <li id="support1">在一些场景中会有错误行为</li>
-                <li id="support2">部分浏览器不支持伪元素动画，或者支持得不够好，尽可能不要利用伪元素来做动画</li>
-				<li>通过<a href="http://gucong3000.github.io/selectivizr/" class="external" target="_blank">selectivizr</a>，可以免去css3前缀。本页下方的示例已使用此方案。</li>
-			</ol>
 		</div>
 	</section>
 	<section id="example" class="g-mod g-attr">
@@ -151,42 +143,52 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>animation-direction_CSS参考手册_web前端开发参考手册系列</title>
-<meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<script src="../../js/prefixfree.min.js"></script>
+<title>perspective_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com" />
+<meta name="copyright" content="www.doyoe.com" />
 <style>
-h1 {
-	font-size: 16px;
+.wrapper {
+    width: 200px;
+    height: 200px;
+    margin: 50px auto;
+    border: 1px solid #000;
+    -webkit-perspective: 50px;
+    perspective: 50px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-animation: test 10s infinite;
+    animation: test 10s infinite;
 }
-div {
-	width: 100px;
-	height: 100px;
-	padding: 10px;
-	border-radius: 61px;
-	box-shadow: 0 0 10px rgba(204, 102, 0, .8);
-	background: #F6D66E;
-	background: -webkit-linear-gradient(top, #fff, #F6D66E);
-	background: -moz-linear-gradient(top, #fff, #F6D66E);
-	background: linear-gradient(to bottom, #fff, #F6D66E);
-	animation: animations 1.5s ease infinite alternate;
+.wrapper > div {
+    width: 180px;
+    height: 120px;
+    margin: 40px 10px;
+    background-color: #ccc;
+    -webkit-transform: rotatex(45deg);
+    transform: rotatex(45deg);
 }
-@keyframes animations {
-	0% {
-		transform: translate(0, 0);
-	}
-	50% {
-		ransform: translate(100px, 100px);
-	}
-	100% {
-		transform: translate(100px, 0);
-	}
+@-webkit-keyframes test {
+    from {
+        -webkit-perspective: 50px;
+    }
+    to {
+        -webkit-perspective: 300px;
+    }
+}
+@keyframes test {
+    from {
+        perspective: 50px;
+    }
+    to {
+        perspective: 300px;
+    }
 }
 </style>
 </head>
 <body>
-<h1>弹性运动的太阳：</h1>
-<div></div>
+<div class="wrapper">
+    <div>1</div>
+</div>
 </body>
 </html>
 			</textarea>

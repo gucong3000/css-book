@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>inherit</title>
-<meta name="description" content="CSS3参考手册之: inherit" />
-<meta name="keywords" content="inherit, css3取值, css3, css3参考手册" />
+<title>unset</title>
+<meta name="description" content="CSS3参考手册之: unset" />
+<meta name="keywords" content="unset, css3取值, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,7 +19,7 @@
 		<span>&#187;</span>
 		<a href="../index.htm">取值与单位列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="values/textual" name="inherit">文本值</a>
+		<a href="index.htm" id="category" rel="values/textual" name="unset">文本值</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
@@ -39,9 +39,10 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">inherit</h1>
+		<h1 class="tit">unset</h1>
 		<ul class="info">
-			<li><strong>版本：CSS2.1</strong></li>
+			<li><strong>版本：CSS3</strong></li>
+			<li>2015.9.6</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -50,20 +51,21 @@
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>该值使得属性能够继承祖先设置。</strong>
+			<strong>擦除属性申明。</strong>
 			<ul>
-				<li><code class="value">inherit</code>属于<dfn>CSS-wide</dfn>关键字，这表示所有的属性都可以接受该值，本手册为了与规范保持一致，未将该值放置到各属性的取值中。</li>
+				<li>一个属性定义了<code class="g-value">unset</code>值，如果该属性是默认继承属性，该值等同于<code class="g-value">inherit</code>，如果该属性是非继承属性，该值等同于<code class="g-value">initial</code></li>
+				<li><code class="value">unset</code>属于<dfn>CSS-wide</dfn>关键字，这表示所有的属性都可以接受该值，本手册为了与规范保持一致，未将该值放置到各属性的取值中。</li>
 				<li>
-					<p>如何让一个不具备继承特性的属性可以继承父元素的定义？</p>
+					<em class="g-color-light">正常工作的例子：</em>
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
 						<blockquote class="gquote-cont"><code><xmp>div {
-	position: relative;
+	border: unset;
 }
-div a {
-	position: inherit;
+div {
+	border: initial;
 }</xmp></code></blockquote>
-	<p class="gquote-info">上述代码，超链接 a 将会继承父元素的<a href="../../properties/positioning/position.htm" class="property">position</a>定义，也会定义为<code class="value">relative</code></p>
+						<p class="gquote-info">如上述代码，2条规则的结果是相同的</p>
 					</div>
 				</li>
 			</ul>
@@ -92,17 +94,21 @@ div a {
 				</thead>
 				<tbody>
 					<tr>
-						<td class="unsupport">6.0-7.0</td>
-						<td class="support" rowspan="2">2.0+</td>
-						<td class="support" rowspan="2">4.0+</td>
-						<td class="support" rowspan="2">3.1+</td>
-						<td class="support" rowspan="2">3.5+</td>
-						<td class="support" rowspan="2">3.2+</td>
-						<td class="support" rowspan="2">2.1+</td>
-						<td class="support" rowspan="2">18.0+</td>
+						<td class="unsupport" rowspan="2">6.0-13.0</td>
+						<td class="unsupport">2.0-26.0</td>
+						<td class="unsupport">4.0-40.0</td>
+						<td class="unsupport" rowspan="2">6.0-9.0</td>
+						<td class="unsupport">15.0-27.0</td>
+						<td class="unsupport" rowspan="2">6.0-9.0</td>
+						<td class="unsupport">2.1-4.4.4</td>
+						<td class="unsupport">18.0-39.0</td>
 					</tr>
 					<tr>
-						<td class="support">8.0+</td>
+						<td class="support">27.0+</td>
+						<td class="support">41.0+</td>
+						<td class="support">28.0+</td>
+						<td class="support">44.0+</td>
+						<td class="support">40.0+</td>
 					</tr>
 				</tbody>
 			</table>
