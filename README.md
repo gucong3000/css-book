@@ -1,6 +1,6 @@
 # CSS参考手册
 
-持续小步更新中...
+国内最好的CSS参考手册，持续小步更新。。。
 
 ## 浏览器支持策略
 
@@ -8,90 +8,29 @@
 
 ## 版本更新
 
-### 草案版本：v4.2.1
+### 最新版本：v4.2.2
 
-CSS参考手册目前正在v4.2.1开发中。广泛接受[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)
+### 开发版本：v4.2.3
 
-### 最新版本：v4.2.0
+CSS参考手册目前正在v4.2.3开发中。广泛接受[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)
 
-更新时间：2015.08.14
-
-* 新增了
-[text-size-adjust](http://css.doyoe.com/properties/text/text-size-adjust.htm),
-[tap-highlight-color](http://css.doyoe.com/properties/only-webkit/tap-highlight-color.htm),
-[user-drag](http://css.doyoe.com/properties/only-webkit/user-drag.htm)
-参考；
-* 修订了 [Transform](http://css.doyoe.com/properties/transform/index.htm) 模块，并新增了3D相关参考：
-[transform-style](http://css.doyoe.com/properties/transform/transform-style.htm),
-[perspective](http://css.doyoe.com/properties/transform/perspective.htm),
-[perspective-origin](http://css.doyoe.com/properties/transform/perspective-origin.htm),
-[backface-visibility](http://css.doyoe.com/properties/transform/backface-visibility.htm)；
-* 阅读指引中新增了 [语法指引](http://css.doyoe.com/introduction/guide.htm) 用于帮助读者轻松看懂语法；
-* 修订了大部分模块的浏览器兼容性列表；
-
-### 上个版本：v4.1.6
-
-更新时间：2015.03.09
-
-* 新增了
-[&lt;image&gt;](http://css.doyoe.com/values/image/image.htm),
-[image()](http://css.doyoe.com/values/image/image().htm),
-[image-set()](http://css.doyoe.com/values/image/image-set().htm),
-[&lt;gradient&gt;](http://css.doyoe.com/values/image/gradient.htm),
-[&lt;color&gt;](http://css.doyoe.com/values/color/color.htm),
-[currentColor](http://css.doyoe.com/values/color/currentColor.htm),
-[inherit](http://css.doyoe.com/values/textual/inherit.htm),
-[initial](http://css.doyoe.com/values/textual/initial.htm),
-[counters](http://css.doyoe.com/values/content/counters.htm),
-[font-size-adjust](http://css.doyoe.com/properties/font/font-size-adjust.htm)
-参考；
-* 移除了 min(), max() 参考；
-* 修订了
-[&lt;url&gt;](http://css.doyoe.com/values/textual/url.htm),
-[linear-gradient()](http://css.doyoe.com/values/image/linear-gradient().htm),
-[repeating-linear-gradient()](http://css.doyoe.com/values/image/repeating-linear-gradient().htm),
-[radial-gradient()](http://css.doyoe.com/values/image/radial-gradient().htm),
-[repeating-radial-gradient()](http://css.doyoe.com/values/image/repeating-radial-gradient().htm)
-参考；
-* 修订了
-[Dimension](http://css.doyoe.com/properties/dimension/index.htm),
-[Margin](http://css.doyoe.com/properties/margin/index.htm),
-[Padding](http://css.doyoe.com/properties/padding/index.htm),
-[Border](http://css.doyoe.com/properties/border/index.htm),
-[Background](http://css.doyoe.com/properties/background/index.htm),
-[Color](http://css.doyoe.com/properties/color/index.htm),
-[Font](http://css.doyoe.com/properties/font/index.htm)
-等模块的浏览器兼容视图；
-* 修订了
-[Selectors](http://css.doyoe.com/selectors/index.htm),
-[Rules](http://css.doyoe.com/rules/index.htm),
-[Values and Units](http://css.doyoe.com/values/index.htm),
-[Appendix](http://css.doyoe.com/appendix/index.htm),
-[CSS Hack](http://css.doyoe.com/hack/index.htm)
-等模块的浏览器兼容视图；
-* 修订了
-[border-image](http://css.doyoe.com/properties/border/border-image.htm),
-[border-radius](http://css.doyoe.com/properties/border/border-radius.htm)
-及相关属性的参考描述；
 
 ### 历史版本：
 
-查看 [版本变更记录](http://css.doyoe.com/introduction/change-list.htm)
+如想查看更多版本变更历史，请查看 [版本变更记录](http://css.doyoe.com/introduction/change-list.htm)
 
-## GitHub计划
+## 微信交流群：
 
-CSS参考手册从v4.1.4开始，代码都托管到[GitHub](https://github.com/doyoe/css-handbook)上。大家可以给手册提[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)。
+![CSS参考手册微信交流群](images/wechat.png)
 
-会阶段性的合并，谢谢。
+## 作者
 
-## Author
-
-My name is Du Yao, working in Beijing [Qunar.com](http://www.qunar.com) now, is active in [Github](https://github.com/doyoe) and [Weibo](http://weibo.com/doyoe). Thus, you can find some information about me on my [Website](http://www.doyoe.com). Of course, you can visit my [blog](http://blog.doyoe.com) and use my tool sites, including [CSS-handbook](http://css.doyoe.com) and [Web front-end laboratories](http://demo.doyoe.com).
+杜瑶，我目前居住在北京，就职于 [Qunar](http://www.qunar.com)，您可以在 [Github](https://github.com/doyoe) 或者 [Weibo](http://weibo.com/doyoe) 看到我的最近动态。当然，也可以通过我的[个人站点](http://www.doyoe.com)，博客：[CSS探索之旅](http://blog.doyoe.com)，[CSS参考手册](http://css.doyoe.com) 和 [Web前端实验室](http://demo.doyoe.com) 等信息了解更多。
 
 
-## Copyright and License
+## 版本许可
 
-Code and documentation copyright 2014-2015 [doyoe.com](http://www.doyoe.com). Code released under [the MIT license](http://opensource.org/licenses/MIT). Docs released under [Creative Commons](http://creativecommons.org/licenses/by/4.0/).
+源码和文档版权属于 [doyoe.com](http://www.doyoe.com)。文档发布基于 [Creative Commons](http://creativecommons.org/licenses/by/4.0/) 开源协议。
 
 <!--
 ## 构建工具安装与使用
