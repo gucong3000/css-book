@@ -3,15 +3,6 @@ var fs = require("fs"),
 	path = require("path"),
 	gulp = require("gulp");
 
-// JSON格式文件读取
-function readOptionalJSON(filepath) {
-	var data = {};
-	try {
-		data = JSON.parse(fs.readFileSync(filepath));
-	} catch (e) {}
-	return data;
-}
-
 function parseHtml(rawHtml) {
 	var htmlparser = require("htmlparser"),
 		handler = new htmlparser.DefaultHandler(function(error, dom) {
@@ -378,7 +369,7 @@ gulp.task("chm", function() {
 	if (tree) {
 		tree = parseUl(tree)[0];
 
-		var pkg = readOptionalJSON("package.json"),
+		var pkg = require("./package.json"),
 			html = '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML><HEAD><meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1"><!-- Sitemap 1.0 --></HEAD><BODY>',
 			hhk = html + "<UL>",
 			hhc = html + '<OBJECT type="text/site properties"><param name="ExWindow Styles" value="0x200"><param name="Window Styles" value="0x800025"><param name="Font" value="MS Sans Serif,9,0"></OBJECT>',
