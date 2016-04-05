@@ -1,3 +1,5 @@
+/* global console, require */
+/* jshint strict:global */
 "use strict";
 var fs = require("fs"),
 	path = require("path"),
@@ -31,7 +33,7 @@ function queryHTML(obj, fn) {
 		if (fn(obj)) {
 			return obj;
 		} else if (obj.children) {
-			return queryHTML(obj.children, fn)
+			return queryHTML(obj.children, fn);
 		}
 	}
 }
@@ -97,7 +99,7 @@ function recurse(rootdir, callback, subdir) {
 			callback(filepath, rootdir, subdir, filename);
 		}
 	});
-};
+}
 
 // 生成连续空格
 function tab(num) {
@@ -122,7 +124,7 @@ function compare(v1, v2) {
 // 将版本号按小数点分割为数组
 function convert(ver) {
 	return /Edge/.test(ver) ? [12] : ver.toString().split(".").map(function(subVer) {
-		return +subVer || 0
+		return +subVer || 0;
 	});
 }
 
@@ -137,7 +139,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		tr: strIndent + tab(2),
 		th: strIndent + tab(3),
 		td: strIndent + tab(3)
-	}
+	};
 
 	// 生成缩进
 	function indent(s, tag, tagName) {
@@ -186,7 +188,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		j,
 		k;
 
-	caniuse.data["border-radius"]["stats"]["safari"]["5"] = "y #1";
+	caniuse.data["border-radius"].stats.safari["5"] = "y #1";
 
 	function getDate(prop) {
 		prop = propFix[prop] || prop;
@@ -199,6 +201,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		}
 		if (data) {
 			if (/^column-break\b/.test(propName)) {
+				// 克隆一份数据
 				data = JSON.parse(JSON.stringify(data));
 				data.stats.firefox = JSON.parse(JSON.stringify(data.stats.firefox).replace(/"a\b[^"]*/g, "\"n"));
 			} else {
@@ -211,6 +214,14 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 				for (var i in data.stats.android) {
 					if (i > 36) {
 						delete data.stats.android[i];
+					}
+				}
+				// 非数字版本号，全部删掉
+				for (var browserName in data.stats) {
+					for (var verName in data.stats[browserName]) {
+						if (!/\d/.test(verName)) {
+							delete data.stats[browserName][verName];
+						}
 					}
 				}
 			}
@@ -266,7 +277,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					}
 
 					if (tabData[i][tbody]) {
-						tabData[i][tbody].push(j)
+						tabData[i][tbody].push(j);
 					} else {
 						tabData[i][tbody] = [j];
 					}
@@ -275,8 +286,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 
 			// opera做数据特殊处理
 			if (i === "opera" && !tabData[i]["y -webkit-"] && tabData[i].y) {
-				tabData[i].y = tabData[i].y.concat(tabData[i]["ywebkit"]);
-				delete tabData[i]["ywebkit"];
+				tabData[i].y = tabData[i].y.concat(tabData[i].ywebkit);
+				delete tabData[i].ywebkit;
 			}
 
 			for (j in tabData[i]) {
@@ -390,7 +401,7 @@ gulp.task("chm", function() {
 			} else {
 				console.log("发现死链接(文件不存在):\t" + o.href);
 			}
-			hhc += '<LI><OBJECT type="text/sitemap"><param name="Name" value="' + o.title + '"><param name="Local" value="' + o.href + '"><param name="ImageNumber" value="' + (o.children ? 1 : (/\//.test(o.href) ? 11 : 15)) + '"></OBJECT>'
+			hhc += '<LI><OBJECT type="text/sitemap"><param name="Name" value="' + o.title + '"><param name="Local" value="' + o.href + '"><param name="ImageNumber" value="' + (o.children ? 1 : (/\//.test(o.href) ? 11 : 15)) + '"></OBJECT>';
 		});
 
 		hhk += "</UL></BODY></HTML>";
