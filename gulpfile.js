@@ -93,7 +93,7 @@ function recurse(rootdir, callback, subdir) {
 		var filepath = path.join(abspath, filename);
 		if (fs.statSync(filepath).isDirectory()) {
 			if (!/^(node_modules|\.git)/.test(filepath)) {
-				recurse(rootdir, callback, path.join(subdir || '', filename || ''));
+				recurse(rootdir, callback, path.join(subdir || "", filename || ""));
 			}
 		} else {
 			callback(filepath, rootdir, subdir, filename);
@@ -146,7 +146,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 		return "\r\n" + (indentData[tagName] || strIndent) + tag;
 	}
 
-	var caniuse = require('caniuse-db/data'),
+	var caniuse = require("caniuse-db/data"),
 		classFix = {
 			p: "experimentsupport",
 			a: "partsupport",
@@ -340,7 +340,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 gulp.task("htm", function() {
 	console.log("正在检查所有html文件代码是否合法，请稍候~~~");
 
-	var replace = require('gulp-replace'),
+	var replace = require("gulp-replace"),
 		htmlhint = require("gulp-htmlhint");
 	recurse(".", function(filepath, rootdir, subdir, filename) {
 		if (/\.html?$/.test(filename)) {
@@ -357,7 +357,7 @@ gulp.task("htm", function() {
 });
 
 //生成chm文件
-gulp.task("chm", function() {
+gulp.task("chm", function(cb) {
 	console.log("正在生成工程文件");
 	var tree = queryHTML(parseHtml(fs.readFileSync("index.htm")), function(obj) {
 		return obj.type == "tag" && obj.attribs && obj.attribs.id == "dytree";
@@ -418,7 +418,7 @@ gulp.task("chm", function() {
 			}
 		}
 
-		var iconv = require('iconv-lite');
+		var iconv = require("iconv-lite");
 		hhk = iconv.encode(hhk, "gbk");
 		hhc = iconv.encode(hhc, "gbk");
 		hhp = iconv.encode(hhp, "gbk");
@@ -443,6 +443,7 @@ gulp.task("chm", function() {
 					if (stderr) {
 						console.log(stderr);
 						console.log("chm编译发生错误");
+						cb();
 					} else {
 						opener("css.chm");
 						var rimraf = require("rimraf");
@@ -450,6 +451,7 @@ gulp.task("chm", function() {
 						rimraf("css.hhc", function() {});
 						rimraf("css.hhp", function() {});
 						console.log("chm编译成功");
+						cb();
 					}
 				});
 			});
