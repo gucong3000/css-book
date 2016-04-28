@@ -105,7 +105,7 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 		} else {
 			setTimeout(function() {
 				try {
-					top.history.pushState(null, null, location.href);
+					top.history.replaceState(null, null, location.href);
 				} catch (ex) {}
 			}, 0);
 
