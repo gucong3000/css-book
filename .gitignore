@@ -26,14 +26,3 @@ node_modules
 
 # test
 test.htm
-
-# other
-404.htm
-to-be-continue.htm
-
-# chm相关
-*.chw
-*.hhc
-*.hhk
-*.hhp
-*.orig
