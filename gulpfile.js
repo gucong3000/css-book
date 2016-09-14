@@ -21,7 +21,8 @@ function tab(num) {
 function compare(v1, v2) {
 	v1 = convert(v1);
 	v2 = convert(v2);
-	for (var diff = 0, i = 0;
+	let diff = 0;
+	for (let i = 0;
 		(i < v1.length || i < v2.length) && diff === 0; i++) {
 		diff = (v1[i] || 0) - (v2[i] || 0);
 	}
@@ -136,7 +137,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 	strIndent = strIndent.match(/\t| {4}/g);
 	strIndent = strIndent ? tab(strIndent.length) : "";
 	// 缩进所用的数据
-	var indentData = {
+	let indentData = {
 		thead: strIndent + tab(1),
 		tbody: strIndent + tab(1),
 		tr: strIndent + tab(2),
@@ -199,14 +200,14 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 					data = JSON.parse(JSON.stringify(data).replace(/"a\b[^"]*/g, "\"n"));
 				}
 				// caniuse-db 版本 1.0.30000013 中，出现了Android的奇怪版本号37，未搞懂，先过滤掉
-				for (var i in data.stats.android) {
+				for (let i in data.stats.android) {
 					if (i > 36) {
 						delete data.stats.android[i];
 					}
 				}
 				// 非数字版本号，全部删掉
-				for (var browserName in data.stats) {
-					for (var verName in data.stats[browserName]) {
+				for (let browserName in data.stats) {
+					for (let verName in data.stats[browserName]) {
 						if (!/\d/.test(verName)) {
 							delete data.stats[browserName][verName];
 						}
@@ -235,8 +236,8 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 gulp.task("htm", function() {
 	gutil.log("正在检查所有html文件代码是否合法，请稍候~~~");
 
-	var replace = require("gulp-replace"),
-		htmlhint = require("gulp-htmlhint");
+	const replace = require("gulp-replace");
+	const htmlhint = require("gulp-htmlhint");
 	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
 		.pipe(replace(/([\t ]*)<\!--\s*compatible\s*:\s*(\w+(-\w+)?)\s*-->[\s\S]*?<!--\s*compatible\s*:\s*end\s*-->/g, caniuseData))
 		.pipe(replace(/(\t|\n) {4,}/g, function(str, char) {
@@ -303,7 +304,7 @@ function fsWalker(rootDir) {
 		subNames = subNames.filter(subName => {
 			return !/^(?:node_modules|\..*)$/i.test(subName);
 		}).map(subName => {
-			var subPath = path.join(rootDir, subName);
+			let subPath = path.join(rootDir, subName);
 
 			// 异步获取子对象状态
 			return fs.statAsync(subPath).then(stat => {
@@ -356,18 +357,21 @@ function treeWalker(node, nest) {
 }
 
 function build() {
-	var hhcPath = "hhc.exe";
-	["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432"]
-	.map(envName => process.env[envName])
-		.filter(rogramDir => rogramDir)
-		.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
-		.some(exePath => {
-			if (fs.existsSync(exePath)) {
-				hhcPath = exePath;
-				return true;
-			}
-		});
-
+	let hhcPath;
+	if (fs.existsSync("hhc.exe")) {
+		hhcPath = "hhc.exe";
+	} else {
+		["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432"]
+		.map(envName => process.env[envName])
+			.filter(rogramDir => rogramDir)
+			.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
+			.some(exePath => {
+				if (fs.existsSync(exePath)) {
+					hhcPath = exePath;
+					return true;
+				}
+			});
+	}
 
 	let opener = require("opener");
 	if (hhcPath) {
