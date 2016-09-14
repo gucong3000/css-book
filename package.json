@@ -22,17 +22,20 @@
     }
   ],
   "dependencies": {
-    "caniuse-db": "^1.0.30000459",
-    "gulp": "^3.9.0",
+    "caniuse-db": "^1.0.30000529",
+    "fs-extra-async": "0.0.6",
+    "gulp": "^3.9.1",
     "gulp-htmlhint": "^0.1.1",
-    "gulp-replace": "^0.5.3",
-    "htmlparser": "^1.7.7",
-    "iconv-lite": "^0.4.11",
-    "opener": "^1.4.1",
-    "rimraf": "^2.4.2"
+    "gulp-replace": "^0.5.4",
+    "gulp-util": "^3.0.7",
+    "iconv-lite": "^0.4.13",
+    "jsdom": "^9.5.0",
+    "opener": "^1.4.2"
   },
   "devDependencies": {},
   "scripts": {
-    "build": "npm install && gulp"
+    "install": "npm install && npm run build",
+    "update": "npm i --save caniuse-db && npm run build",
+    "build": "gulp htm && gulp chm"
   }
 }
