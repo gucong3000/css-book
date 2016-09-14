@@ -111,14 +111,7 @@ function compatible(data, strPropName, propName, strIndent, indent) {
 
 	for (let browserName in tabData) {
 		tbody = rowNum - tabData[browserName].length + 1;
-		try {
-
-			tabData[browserName][tabData[browserName].length - 1].rowspan = tbody > 1 ? ' rowspan="' + tbody + '"' : "";
-		} catch (ex) {
-			console.log(browserName, strPropName, tabData[browserName])
-			console.log(data)
-				// console.log(data)
-		}
+		tabData[browserName][tabData[browserName].length - 1].rowspan = tbody > 1 ? ' rowspan="' + tbody + '"' : "";
 		if (/^y\w*$/.test(tabData[browserName][tabData[browserName].length - 1].type) && tabData[browserName][tabData[browserName].length - 1].value.length > 1) {
 			tabData[browserName][tabData[browserName].length - 1].value = [tabData[browserName][tabData[browserName].length - 1].value[0] + "+"];
 		}
@@ -244,7 +237,7 @@ gulp.task("htm", function() {
 
 	var replace = require("gulp-replace"),
 		htmlhint = require("gulp-htmlhint");
-	gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
+	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
 		.pipe(replace(/([\t ]*)<\!--\s*compatible\s*:\s*(\w+(-\w+)?)\s*-->[\s\S]*?<!--\s*compatible\s*:\s*end\s*-->/g, caniuseData))
 		.pipe(replace(/(\t|\n) {4,}/g, function(str, char) {
 			return char + tab(parseInt(str.length / 4));
