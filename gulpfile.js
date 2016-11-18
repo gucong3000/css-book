@@ -444,4 +444,4 @@ gulp.task("chm", function() {
 	});
 });
 
-gulp.task("default", ["htm", "chm"]);
+gulp.task("default", gulp.series("htm", "chm"));
