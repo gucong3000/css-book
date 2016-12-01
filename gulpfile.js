@@ -426,7 +426,9 @@ gulp.task("chm", function() {
 	return Promise.all([
 		readTree(),
 		projWalker(),
-	]).then(([tree, files]) => {
+	]).then(function (results) {
+		var tree = results[0];
+		var files = results[1];
 		let pkg = require("./package.json");
 		let htmlHead = `<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML><HEAD><meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1"><!-- Sitemap 1.0 --></HEAD><BODY>`;
 		let hhc = `${ htmlHead }<OBJECT type="text/site properties"><param name="ExWindow Styles" value="0x200"><param name="Window Styles" value="0x800025"><param name="Font" value="MS Sans Serif,9,0"></OBJECT>${ treeWalker(tree, true) }</BODY></HTML>`;
