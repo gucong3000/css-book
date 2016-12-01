@@ -5,7 +5,7 @@ install:
 # Post-install test scripts.
 test_script:
   - node -e "console.log(process.env)"
-  - for /r c:\ %i in (*) do @echo %i
+  - where hhc
 
 build_script:
   # Output useful info for debugging.
