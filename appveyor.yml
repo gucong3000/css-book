@@ -5,7 +5,11 @@ install:
 # Post-install test scripts.
 test_script:
   - node -e "console.log(process.env)"
-  - where hhc
+  - cd /d "%VS100COMNTOOLS%" && dir && tree
+  - cd /d "%VS110COMNTOOLS%" && dir && tree
+  - cd /d "%VS120COMNTOOLS%" && dir && tree
+  - cd /d "%VS140COMNTOOLS%" && dir && tree
+  - cd /d "%VS90COMNTOOLS%" && dir && tree
 
 build_script:
   # Output useful info for debugging.
