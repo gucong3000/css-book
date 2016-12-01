@@ -1,0 +1,13 @@
+install:
+  # install modules
+  - npm install
+
+build_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - npm build
+
+# Don't actually build.
+build: off

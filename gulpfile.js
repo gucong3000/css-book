@@ -5,6 +5,8 @@ let gutil = require("gulp-util");
 let jsdom = require("jsdom");
 let fs = require("fs-extra-async");
 let caniuse = require("caniuse-db/data");
+var which = require("which");
+
 let classFix = {
 	p: "experimentsupport",
 	a: "partsupport",
@@ -361,16 +363,23 @@ function build() {
 	if (fs.existsSync("hhc.exe")) {
 		hhcPath = "hhc.exe";
 	} else {
-		["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432"]
-		.map(envName => process.env[envName])
-			.filter(rogramDir => rogramDir)
-			.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
-			.some(exePath => {
-				if (fs.existsSync(exePath)) {
-					hhcPath = exePath;
-					return true;
-				}
-			});
+		try {
+			hhcPath = which.sync("hhc");
+		} catch (ex) {
+			// 
+		}
+		if (!hhcPath) {
+			["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432"]
+			.map(envName => process.env[envName])
+				.filter(rogramDir => rogramDir)
+				.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
+				.some(exePath => {
+					if (fs.existsSync(exePath)) {
+						hhcPath = exePath;
+						return true;
+					}
+				});
+		}
 	}
 
 	let opener = require("opener");
