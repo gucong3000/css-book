@@ -23,7 +23,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "caniuse-db": "^1.0.30000529",
+    "caniuse-db": "^1.0.30000590",
     "fs-extra-async": "0.0.6",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-htmlhint": "^0.3.1",
@@ -35,8 +35,7 @@
     "which": "^1.2.12"
   },
   "scripts": {
-    "install": "npm install && npm run build",
     "update": "npm i --save caniuse-db && npm run build",
-    "build": "gulp htm && gulp chm"
+    "build": "gulp"
   }
 }

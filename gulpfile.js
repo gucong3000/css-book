@@ -404,7 +404,9 @@ function build() {
 		})
 
 		.then(stdout => {
-			opener("css.chm");
+			if (!process.env.CI) {
+				opener("css.chm");
+			}
 			gutil.log(stdout);
 			gutil.log("chm编译成功");
 		}).catch(stderr => {
