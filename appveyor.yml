@@ -1,14 +1,8 @@
 install:
   # install modules
+  - curl -L -o "%TEMP%\htmlhelp.exe" https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe
   - npm install
-  - ps: Start-FileDownload 'https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe'
-  - dir
-  - 7z x htmlhelp.exe -o"%TEMP%\HTML Help Workshop"
-  - del htmlhelp.exe
- 
-# Post-install test scripts.
-test_script:
-  - node -e "console.log(process.env)"
+  - 7z x "%TEMP%\htmlhelp.exe" -o"%TEMP%\HTML Help Workshop"
 
 build_script:
   # Output useful info for debugging.
@@ -16,6 +10,3 @@ build_script:
   - npm --version
   # run tests
   - npm build
-
-# Don't actually build.
-build: off
