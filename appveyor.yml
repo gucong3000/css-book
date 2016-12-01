@@ -1,15 +1,14 @@
 install:
   # install modules
   - npm install
-
+  - ps: Start-FileDownload 'https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe'
+  - dir
+  - 7z x htmlhelp.exe -o"%TEMP%\HTML Help Workshop"
+  - del htmlhelp.exe
+ 
 # Post-install test scripts.
 test_script:
   - node -e "console.log(process.env)"
-  - cd /d "%VS100COMNTOOLS%" && dir && tree
-  - cd /d "%VS110COMNTOOLS%" && dir && tree
-  - cd /d "%VS120COMNTOOLS%" && dir && tree
-  - cd /d "%VS140COMNTOOLS%" && dir && tree
-  - cd /d "%VS90COMNTOOLS%" && dir && tree
 
 build_script:
   # Output useful info for debugging.

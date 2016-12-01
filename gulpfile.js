@@ -369,7 +369,7 @@ function build() {
 			// 
 		}
 		if (!hhcPath) {
-			["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432"]
+			["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432", "TEMP"]
 			.map(envName => process.env[envName])
 				.filter(rogramDir => rogramDir)
 				.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
