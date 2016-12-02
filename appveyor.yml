@@ -17,7 +17,13 @@ build_script:
 
 after_build:
   # 压缩chm文件为zip包
-  - echo 详见：http://jingyan.baidu.com/article/6079ad0e491bd228ff86db8a.html>CHM_blank_solution.txt
+  - echo chm格式的电子书打开是空白的解决办法>CHM_blank_solution.txt
+  - echo.>>CHM_blank_solution.txt
+  - echo 1. 右键单击该 chm格式的电子书，然后单击“属性”。>>CHM_blank_solution.txt
+  - echo 2. 单击“取消阻止”或者选“解除锁定”。>>CHM_blank_solution.txt
+  - echo.>>CHM_blank_solution.txt
+  - echo 详见：http://jingyan.baidu.com/article/6079ad0e491bd228ff86db8a.html>>CHM_blank_solution.txt
+  
   - 7z a css.zip css.chm CHM_blank_solution.txt
 
 artifacts:
