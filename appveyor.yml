@@ -19,8 +19,8 @@ deploy:
     # your encrypted token from GitHub
     secure: YEJZUH9eUbhJGdvS13k/n05NwM/OAEGuLA0WjpOyypUEUk/PppQlYjrH8uKA0vuU
   # upload chm file to release assets
-  artifact: /.*\.chm$/
-  draft: true
+  artifact: /.*\.chm/
+  draft: false
   prerelease: false
   on:
     # release from gh-pages branch only
