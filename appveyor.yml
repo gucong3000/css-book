@@ -11,18 +11,6 @@ build_script:
   # run tests
   - npm run build
 
-deploy:
-  release: ci-v$(appveyor_build_version)
-  description: "由appveyor 自动发布"
-  provider: GitHub
-  auth_token:
-    # your encrypted token from GitHub
-    secure: YEJZUH9eUbhJGdvS13k/n05NwM/OAEGuLA0WjpOyypUEUk/PppQlYjrH8uKA0vuU
-  # upload chm file to release assets
-  artifact: css.chm
-  draft: false
-  prerelease: false
-  on:
-    # release from gh-pages branch only
-    branch: gh-pages
-    appveyor_repo_tag: true
+artifacts:
+  - path: css.chm
+    name: CSS 手册
