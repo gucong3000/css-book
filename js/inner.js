@@ -868,8 +868,8 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 		var testBrowser =
 		'<div class="g-browser g-clear">'+
 			'<ul>'+
-				'<li><a href="https://github.com/doyoe/css-handbook/issues" target="_blank" rel="external" class="external">Issues</a></li>'+
-				'<li><a href="https://github.com/doyoe/css-handbook/pulls" target="_blank" rel="external" class="external">Pull Requests</a></li>'+
+				'<li><a href="https://github.com/gucong3000/css-book/issues" target="_blank" rel="external" class="external">Issues</a></li>'+
+				'<li><a href="https://github.com/gucong3000/css-book/pulls" target="_blank" rel="external" class="external">Pull Requests</a></li>'+
 			'</ul>'+
 			'<p>Base Browsers: IE6.0+, Firefox2.0+, Chrome4.0+, Safari6.0+, Opera15.0+</p>'+
 		'</div>';

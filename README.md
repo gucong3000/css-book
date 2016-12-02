@@ -14,7 +14,7 @@
 
 ### 开发版本：v4.2.4
 
-CSS参考手册目前正在v4.2.4开发中。广泛接受[Issues](https://github.com/doyoe/css-handbook/issues)和[Pull Requests](https://github.com/doyoe/css-handbook/pulls)
+CSS参考手册目前正在v4.2.4开发中。广泛接受[Issues](https://github.com/gucong3000/css-book/issues)和[Pull Requests](https://github.com/gucong3000/css-book/pulls)
 
 
 ### 历史版本：
