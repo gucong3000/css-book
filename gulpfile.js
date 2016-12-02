@@ -252,6 +252,19 @@ gulp.task("htm", function() {
 		.pipe(gulp.dest("."));
 });
 
+// html修复
+gulp.task("gbk-js", function(cb) {
+	if (process.env.CI) {
+		gutil.log("正在修改js文件文件编码");
+
+		return gulp.src(["js/**/*.js"])
+			.pipe(convertEncoding({to: "gbk"}))
+			.pipe(gulp.dest("js"));
+	} else {
+		cb();
+	}
+});
+
 // html验证
 gulp.task("lint", function() {
 	gutil.log("正在检查所有html文件代码是否合法");
@@ -463,6 +476,6 @@ gulp.task("chm", function() {
 });
 
 
-gulp.task("build", gulp.series("htm", "chm"));
+gulp.task("build", gulp.series("htm", "gbk-js", "chm"));
 
-gulp.task("default", gulp.series("lint", "htm", "chm"));
+gulp.task("default", gulp.series("lint", "htm", "gbk-js", "chm"));
