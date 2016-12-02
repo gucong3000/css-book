@@ -17,8 +17,8 @@ build_script:
 
 after_build:
   # 压缩chm文件为zip包
-  - echo 详见：http://jingyan.baidu.com/article/6079ad0e491bd228ff86db8a.html>chm打开是空白的解决办法.txt
-  - 7z a css.zip css.chm chm打开是空白的解决办法.txt
+  - echo 详见：http://jingyan.baidu.com/article/6079ad0e491bd228ff86db8a.html>CHM_blank_solution.txt
+  - 7z a css.zip css.chm CHM_blank_solution.txt
 
 artifacts:
   - path: css.chm
