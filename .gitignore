@@ -29,3 +29,6 @@ test.htm
 
 # build
 *.chm
+*.hhc
+*.hhk
+*.hhp

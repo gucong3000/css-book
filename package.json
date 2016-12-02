@@ -26,16 +26,19 @@
     "caniuse-db": "^1.0.30000590",
     "fs-extra-async": "^1.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-convert-encoding": "^1.0.0",
     "gulp-htmlhint": "^0.3.1",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.7",
     "iconv-lite": "^0.4.15",
     "jsdom": "^9.5.0",
     "opener": "^1.4.2",
+    "through2": "^2.0.3",
     "which": "^1.2.12"
   },
   "scripts": {
     "update": "npm i --save caniuse-db && npm run build",
+    "test": "gulp lint",
     "build": "gulp"
   }
 }

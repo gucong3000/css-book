@@ -1,11 +1,15 @@
 "use strict";
-let path = require("path");
+let caniuse = require("caniuse-db/data");
+let convertEncoding = require("gulp-convert-encoding");
+let fs = require("fs-extra-async");
 let gulp = require("gulp");
 let gutil = require("gulp-util");
+let htmlhint = require("gulp-htmlhint");
+let iconv = require("iconv-lite");
 let jsdom = require("jsdom");
-let fs = require("fs-extra-async");
-let caniuse = require("caniuse-db/data");
-var which = require("which");
+let path = require("path");
+let replace = require("gulp-replace");
+let which = require("which");
 
 let classFix = {
 	p: "experimentsupport",
@@ -234,20 +238,27 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 	return str;
 }
 
-// html验证
+// html修复
 gulp.task("htm", function() {
-	gutil.log("正在检查所有html文件代码是否合法，请稍候~~~");
+	gutil.log("正在修复HTML文件");
 
-	const replace = require("gulp-replace");
-	const htmlhint = require("gulp-htmlhint");
-	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
+	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*", "!index.htm"])
 		.pipe(replace(/([\t ]*)<\!--\s*compatible\s*:\s*(\w+(-\w+)?)\s*-->[\s\S]*?<!--\s*compatible\s*:\s*end\s*-->/g, caniuseData))
 		.pipe(replace(/(\t|\n) {4,}/g, function(str, char) {
 			return char + tab(parseInt(str.length / 4));
 		}))
-		.pipe(htmlhint())
-		.pipe(htmlhint.reporter())
+		.pipe(replace(/<meta\s+charset=(["'])[\w-]+\1(?:\s+\/)?>/i, process.env.CI ? "<meta charset=\"gbk\">" : "<meta charset=\"utf-8\" />"))
+		.pipe(process.env.CI ? convertEncoding({to: "gbk"}) : gutil.noop())
 		.pipe(gulp.dest("."));
+});
+
+// html验证
+gulp.task("lint", function() {
+	gutil.log("正在检查所有html文件代码是否合法");
+
+	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
+		.pipe(htmlhint())
+		.pipe(htmlhint.reporter());
 
 });
 
@@ -371,7 +382,7 @@ function build() {
 		if (!hhcPath) {
 			["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432", "TEMP"]
 			.map(envName => process.env[envName])
-				.filter(rogramDir => rogramDir)
+				.filter(Boolean)
 				.map(rogramDir => path.join(rogramDir, "HTML Help Workshop/hhc.exe"))
 				.some(exePath => {
 					if (fs.existsSync(exePath)) {
@@ -414,7 +425,7 @@ function build() {
 			gutil.log("chm编译发生错误");
 		});
 	} else {
-		gutil.log("未找到hhc.exe，请安装HTML Help Workshop后将其拷贝至当前目录");
+		gutil.log("未找到hhc.exe，请安装[HTML Help Workshop](https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe)");
 		opener("css.hhp");
 		return Promise.reject(hhcPath);
 	}
@@ -427,8 +438,8 @@ gulp.task("chm", function() {
 		readTree(),
 		projWalker(),
 	]).then(function (results) {
-		var tree = results[0];
-		var files = results[1];
+		let tree = results[0];
+		let files = results[1];
 		let pkg = require("./package.json");
 		let htmlHead = `<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN"><HTML><HEAD><meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1"><!-- Sitemap 1.0 --></HEAD><BODY>`;
 		let hhc = `${ htmlHead }<OBJECT type="text/site properties"><param name="ExWindow Styles" value="0x200"><param name="Window Styles" value="0x800025"><param name="Font" value="MS Sans Serif,9,0"></OBJECT>${ treeWalker(tree, true) }</BODY></HTML>`;
@@ -442,19 +453,16 @@ gulp.task("chm", function() {
 				return true;
 			}
 		}).join("\n");
-		let iconv = require("iconv-lite");
+
 		return Promise.all([
 			fs.writeFileAsync("css.hhc", iconv.encode(hhc, "gbk")),
 			fs.writeFileAsync("css.hhk", iconv.encode(hhk, "gbk")),
 			fs.writeFileAsync("css.hhp", iconv.encode(hhp, "gbk")),
 		]);
-	}).then(build).then(() => {
-		return Promise.all([
-			fs.unlinkAsync("css.hhc"),
-			fs.unlinkAsync("css.hhk"),
-			fs.unlinkAsync("css.hhp"),
-		]);
-	});
+	}).then(build);
 });
 
-gulp.task("default", gulp.series("htm", "chm"));
+
+gulp.task("build", gulp.series("htm", "chm"));
+
+gulp.task("default", gulp.series("lint", "htm", "chm"));

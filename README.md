@@ -1,5 +1,7 @@
 # CSS参考手册
 
+[![AppVeyor](https://img.shields.io/appveyor/ci/gucong3000/css-book.svg)](https://ci.appveyor.com/project/gucong3000/css-book)
+
 国内最好的CSS参考手册，持续小步更新。。。
 
 ## 浏览器支持策略
