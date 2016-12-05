@@ -23,7 +23,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "caniuse-db": "^1.0.30000590",
+    "caniuse-db": "^1.0.30000591",
     "fs-extra-async": "^1.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-convert-encoding": "^1.0.0",
