@@ -37,7 +37,7 @@
     "which": "^1.2.12"
   },
   "scripts": {
-    "update": "npm i --save caniuse-db && npm run build",
+    "update": "npm i --save-dev caniuse-db && npm run build",
     "test": "gulp lint",
     "build": "gulp"
   }

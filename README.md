@@ -34,11 +34,10 @@ CSS参考手册目前正在v4.2.4开发中。广泛接受[Issues](https://github
 
 源码和文档版权属于 [doyoe.com](http://www.doyoe.com)。文档发布基于 [Creative Commons](http://creativecommons.org/licenses/by/4.0/) 开源协议。
 
-<!--
 ## 构建工具安装与使用
 
 1. 安装[Node.js](http://nodejs.org/download/)，安装后可能需要重启电脑
-1. 命令行运行`npm install -g gulp `
+1. 命令行运行`npm install -g gulp`
 1. 将安装源设置为中国地区，否则会很慢 `npm config set registry http://registry.cnpmjs.org/ --global`
 1. 项目根目录运行`npm install`
 
