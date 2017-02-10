@@ -14,16 +14,21 @@
 
 ### 开发版本：v4.2.4
 
-CSS参考手册目前正在v4.2.4开发中。广泛接受[Issues](https://github.com/gucong3000/css-book/issues)和[Pull Requests](https://github.com/gucong3000/css-book/pulls)
-
 
 ### 历史版本：
 
 如想查看更多版本变更历史，请查看 [版本变更记录](http://css.doyoe.com/introduction/change-list.htm)
 
+
+## 问题及反馈
+
+如果您在使用CSS参考手册时发现了任何问题，或者有任何帮助手册更完善的想法和建议，请直接给我们提 [Issues](https://github.com/doyoe/css-handbook/issues/new) 和 [Pull Requests](https://github.com/doyoe/css-handbook/pulls)。
+
+
 ## 微信交流群：
 
 ![CSS参考手册微信交流群](images/wechat.png)
+
 
 ## 作者
 
@@ -33,46 +38,3 @@ CSS参考手册目前正在v4.2.4开发中。广泛接受[Issues](https://github
 ## 版本许可
 
 源码和文档版权属于 [doyoe.com](http://www.doyoe.com)。文档发布基于 [Creative Commons](http://creativecommons.org/licenses/by/4.0/) 开源协议。
-
-## 构建工具安装与使用
-
-1. 安装[Node.js](http://nodejs.org/download/)，安装后可能需要重启电脑
-1. 将安装源设置为中国地区，否则会很慢 `npm config set registry http://registry.cnpmjs.org/ --global`
-1. 项目根目录运行`npm i`
-
-### 编译chm
-
-1. windows下安装[HTML Help Workshop](https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe)
-1. 在项目根目录运行`npm run build`命令
-
-如果编译失败，请尝试拷贝`hhc.exe`到项目目录下
-
-### 自动获取[caniuse](http://caniuse.com/)数据
-
-在htm中添加如下注释
-
-```HTML
-<!-- compatible:start -->
-<!-- compatible:end -->
-```
-
-一个页面需要多个兼容性表格：
-```HTML
-<!-- compatible:user-select-none -->
-<!-- compatible:end -->
-
-<!-- compatible:placeholder -->
-<!-- compatible:end -->
-```
-
-### 代码错误检查
-
-在项目根目录运行`npm run test`命令，将会检查所有html文件的代码合法性
-
-
-### 持续集成(CI) 配置
-
-- 使用appveyor构建chm文件
-- CI下构建时，不自动打开chm文件
-- CI下构建时，HTML和JS文件编码转换为GBK
-- 构建后，自动发布chm文件及其压缩包到artifacts
