@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>text-stroke-width</title>
-<meta name="description" content="CSS3参考手册之: text-stroke-width" />
-<meta name="keywords" content="text-stroke-width, css3, css3参考手册" />
+<title>-webkit-user-drag</title>
+<meta name="description" content="CSS3参考手册之: -webkit-user-drag" />
+<meta name="keywords" content="-webkit-user-drag, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,7 +19,7 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/only-webkit" name="text-stroke-width">Only Webkit属性</a>
+		<a href="index.htm" id="category" rel="properties/only-webkit" name="-webkit-user-drag">Only Webkit属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
@@ -39,10 +39,10 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">text-stroke-width</h1>
+		<h1 class="tit">-webkit-user-drag</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>媒体：视觉</li>
+			<li>媒体：互动</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -51,11 +51,11 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>text-stroke-width</strong>：<a href="../../values/length/length.htm">&lt;length&gt;</a></p>
-			<p><strong>默认值</strong>：<mark class="defaultvalue">0</mark></p>
+			<p><strong>-webkit-user-drag</strong>：auto | element | none</p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
 			<p><strong>适用于</strong>：所有元素</p>
 			<p><strong>继承性</strong>：有</p>
-			<p><strong>动画性</strong>：是</p>
+			<p><strong>动画性</strong>：否</p>
 			<p><strong>计算值</strong>：指定值</p>
 		</div>
 	</section>
@@ -63,17 +63,21 @@
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
 			<dl>
-				<dt><a href="../../values/length/length.htm">&lt;length&gt;</a>：</dt>
-				<dd>用长度值指定描边厚度。不允许负值</dd>
+				<dt>auto：</dt>
+				<dd>使用默认的拖拽行为，这种情况只有图片和链接可以被拖拽。</dd>
+				<dt>element：</dt>
+				<dd>整个元素（不仅仅只是它的内容）可拖拽。</dd>
+				<dt>none：</dt>
+				<dd>元素不能被拖动。在通过选中后可拖拽。</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>设置或检索对象中的文字的描边厚度</strong>
+			<strong>用以设置一个元素和它的内容是否可以被拖拽</strong>
 			<ul>
-				<li>对应的脚本特性为<strong>textStrokeWidth</strong>。</li>
+				<li>对应的脚本特性为<strong>webkitUserDrag</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -105,11 +109,11 @@
 						<td class="unsupport">6.0-11.0</td>
 						<td class="unsupport">2.0-40.0</td>
 						<td class="support">4.0-45.0<sup class="fix">-webkit-</sup></td>
-						<td class="support">4.0-8.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">6.0-8.0<sup class="fix">-webkit-</sup></td>
 						<td class="support">15.0-29.0<sup class="fix">-webkit-</sup></td>
-						<td class="support">4.0-8.3<sup class="fix">-webkit-</sup></td>
-						<td class="support">2.1-4.4.4<sup class="fix">-webkit-</sup></td>
-						<td class="support">18.0-42.0<sup class="fix">-webkit-</sup></td>
+						<td class="unsupport">6.0-8.3</td>
+						<td class="unsupport">2.1-4.4.4</td>
+						<td class="unsupport">18.0-42.0</td>
 					</tr>
 				</tbody>
 			</table>
@@ -123,24 +127,41 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>text-stroke-width_CSS参考手册_web前端开发参考手册系列</title>
+<title>-webkit-user-drag_CSS参考手册_web前端开发参考手册系列</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-html,body{font:bold 14px/1.5 georgia,simsun,sans-serif;text-align:center;}
-.stroke h1{margin:0;padding:10px 0 0;}
-.stroke p{
-	margin:50px auto 100px;font-size:100px;
-	-webkit-text-stroke-width:2px;
-	-webkit-text-stroke-color:#ff0;
+dd {
+	padding: 5px 0;
 }
-.copyright,.info{font-style:italic;}
+img {
+	width: 100px;
+	height: 100px;
+}
+.element {
+	-webkit-user-drag: element;
+	cursor: move;
+	-webkit-user-select: none;
+}
+.none {
+	-webkit-user-drag: none;
+}
 </style>
 </head>
 <body>
-<div class="stroke">
-	<h1>描边的文字：</h1>
-	<p>我是被描了2像素黄边的文字</p>
-</div>
+<dl>
+	<dt>-webkit-user-drag: auto</dt>
+	<dd><a href="#">我是一个链接</a></dd>
+	<dd><img src="../../images/alipay.png" alt="支付宝二维码" /></dd>
+	<dd>我是一些纯文字</dd>
+	<dt>-webkit-user-drag: element</dt>
+	<dd class="element"><a href="#">我是一个链接</a></dd>
+	<dd class="element"><img src="../../images/alipay.png" alt="支付宝二维码" /></dd>
+	<dd class="element">我是一些纯文字</dd>
+	<dt>-webkit-user-drag: none</dt>
+	<dd><a class="none" href="#">我是一个链接</a></dd>
+	<dd><img class="none" src="../../images/alipay.png" alt="支付宝二维码" /></dd>
+	<dd class="none">我是一些纯文字</dd>
+</dl>
 </body>
 </html>
 			</textarea>

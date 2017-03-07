@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>border-left-colors</title>
-<meta name="description" content="CSS3参考手册之: border-left-colors" />
-<meta name="keywords" content="border-left-colors, css3, css3参考手册" />
+<title>-webkit-text-stroke</title>
+<meta name="description" content="CSS3参考手册之: -webkit-text-stroke" />
+<meta name="keywords" content="-webkit-text-stroke, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,14 +19,14 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/only-firefox" name="border-left-colors">Only Firefox属性</a>
+		<a href="index.htm" id="category" rel="properties/only-webkit" name="-webkit-text-stroke">Only Webkit属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
 		<span class="label">相关内容：</span>
 		<div class="g-combobox g-transition">
 			<a href="?" class="g-transition target">
-				<strong>其它Only Firefox属性</strong>
+				<strong>其它Only Webkit属性</strong>
 				<span>选择其它项<!--[if lte IE 7]><ins>IE7 and earlier, Get to die</ins><![endif]--></span>
 			</a>
 			<div class="g-transition list">
@@ -39,7 +39,7 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">border-left-colors</h1>
+		<h1 class="tit">-webkit-text-stroke</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
 			<li>媒体：视觉</li>
@@ -51,30 +51,32 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>border-left-colors</strong>：<a href="../../values/color/color.htm">&lt;color&gt;</a>{1,}</p>
-			<p><strong>相关属性</strong>：&lt;' <a href="border-top-colors.htm">border-top-colors</a> '&gt; || &lt;' <a href="border-right-colors.htm">border-right-colors</a> '&gt; || &lt;' <a href="border-bottom-colors.htm">border-bottom-colors</a> '&gt;</p>
+			<p><strong>-webkit-text-stroke</strong>：<a href="-webkit-text-stroke-width.htm" class="g-property">-webkit-text-stroke-width</a> || <a href="-webkit-text-stroke-color.htm" class="g-property">-webkit-text-stroke-color</a></p>
+			<p><strong>默认值</strong>：<mark class="defaultvalue">看每个独立属性</mark></p>
 			<p><strong>适用于</strong>：所有元素</p>
-			<p><strong>继承性</strong>：无</p>
-			<p><strong>动画性</strong>：是</p>
-			<p><strong>计算值</strong>：指定值</p>
+			<p><strong>继承性</strong>：有</p>
+			<p><strong>动画性</strong>：看每个独立属性</p>
+			<p><strong>计算值</strong>：看每个独立属性</p>
 		</div>
 	</section>
 	<section id="value" class="g-mod g-attr">
 		<h2 class="tit">取值：</h2>
 		<div class="cont">
 			<dl>
-				<dt><a href="../../values/color/color.htm">&lt;color&gt;</a>：</dt>
-				<dd>指定颜色。</dd>
+				<dt><a href="-webkit-text-stroke-width.htm" class="g-property">-webkit-text-stroke-width</a>：</dt>
+				<dd>设置或检索对象中的文字的描边厚度</dd>
+				<dt><a href="-webkit-text-stroke-color.htm" class="g-property">-webkit-text-stroke-color</a>：</dt>
+				<dd>设置或检索对象中的文字的描边颜色</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>设置或检索对象左边边框的多重颜色。</strong>参阅 &lt;' <a href="../border/border-left-color.htm">border-left-color</a> '&gt; 属性。
+			<strong>复合属性。定义文字的描边样式。</strong>
 			<ul>
-				<li>border的width为(n)px，那么最多可以设置n组边框色，每组边框色宽度为1px；如果border的width为10px，却只设置了6组边框色，那么最后一组边框色将自动渲染剩余的宽度</li>
-				<li>对应的脚本特性为<strong>borderLeftColors</strong>。</li>
+				<li>通过 <code class="g-property">-webkit-text-stroke</code> 属性，可以做出描边文字的效果。Demo: <a href="http://demo.doyoe.com/css3/text-stroke/stroke-text.htm" target="_blank" class="external" rel="external">描边文字</a> <span class="g-color-light">See with Webkit</span></li>
+				<li>对应的脚本特性为<strong>webkitTextStroke</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -104,13 +106,13 @@
 					<tr>
 						<td><strong>Basic Support</strong></td>
 						<td class="unsupport">6.0-11.0</td>
-						<td class="support">2.0-40.0<sup class="fix">-moz-</sup></td>
-						<td class="unsupport">4.0-45.0</td>
-						<td class="unsupport">6.0-8.0</td>
-						<td class="unsupport">15.0-29.0</td>
-						<td class="unsupport">6.0-8.3</td>
-						<td class="unsupport">2.1-4.4.4</td>
-						<td class="unsupport">18.0-42.0</td>
+						<td class="unsupport">2.0-40.0</td>
+						<td class="support">4.0-45.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">4.0-8.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">15.0-29.0<sup class="fix">-webkit-</sup></td>
+						<td class="support">4.0-8.3<sup class="fix">-webkit-</sup></td>
+						<td class="support">2.1-4.4.4<sup class="fix">-webkit-</sup></td>
+						<td class="support">18.0-42.0<sup class="fix">-webkit-</sup></td>
 					</tr>
 				</tbody>
 			</table>
@@ -124,14 +126,23 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>border-left-colors_CSS参考手册_web前端开发参考手册系列</title>
+<title>-webkit-text-stroke_CSS参考手册_web前端开发参考手册系列</title>
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-.test{padding:10px;border-left-width:5px;border-left-style:solid;-moz-border-left-colors:#000 #fff #050 #fff #f00;}
+html,body{font:bold 14px/1.5 georgia,simsun,sans-serif;text-align:center;}
+.stroke h1{margin:0;padding:10px 0 0;}
+.stroke p{
+	margin:50px auto 100px;font-size:100px;
+	-webkit-text-stroke:1px #f00;
+}
+.copyright,.info{font-style:italic;}
 </style>
 </head>
 <body>
-<div class="test">左边多组边框色效果</div>
+<div class="stroke">
+	<h1>描边的文字：</h1>
+	<p>我是被描了1像素红边的文字</p>
+</div>
 </body>
 </html>
 			</textarea>

@@ -2,9 +2,9 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>user-drag</title>
-<meta name="description" content="CSS3参考手册之: user-drag" />
-<meta name="keywords" content="user-drag, css3, css3参考手册" />
+<title>-webkit-overflow-scrolling</title>
+<meta name="description" content="CSS3参考手册之: -webkit-overflow-scrolling" />
+<meta name="keywords" content="tap-highlight-color, css3, css3参考手册" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <meta name="robots" content="all" />
 <!--[if lte IE 8]>
@@ -19,7 +19,7 @@
 		<span>&#187;</span>
 		<a href="../index.htm">属性列表</a>
 		<span>&#187;</span>
-		<a href="index.htm" id="category" rel="properties/only-webkit" name="user-drag">Only Webkit属性</a>
+		<a href="index.htm" id="category" rel="properties/only-webkit" name="-webkit-overflow-scrolling">Only Webkit属性</a>
 		<span>&#187;</span>
 	</div>
 	<div class="to">
@@ -39,10 +39,10 @@
 </nav>
 <header id="hd">
 	<section id="title" class="g-mod">
-		<h1 class="tit">user-drag</h1>
+		<h1 class="tit">-webkit-overflow-scrolling</h1>
 		<ul class="info">
 			<li><strong>版本：CSS3</strong></li>
-			<li>媒体：互动</li>
+			<li>媒体：视觉</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -51,10 +51,10 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>user-drag</strong>：auto | element | none</p>
+			<p><strong>-webkit-overflow-scrolling</strong>：auto | touch</p>
 			<p><strong>默认值</strong>：<mark class="defaultvalue">auto</mark></p>
-			<p><strong>适用于</strong>：所有元素</p>
-			<p><strong>继承性</strong>：有</p>
+			<p><strong>适用于</strong>：块容器，伸缩盒容器，grid容器</p>
+			<p><strong>继承性</strong>：无</p>
 			<p><strong>动画性</strong>：否</p>
 			<p><strong>计算值</strong>：指定值</p>
 		</div>
@@ -64,20 +64,31 @@
 		<div class="cont">
 			<dl>
 				<dt>auto：</dt>
-				<dd>使用默认的拖拽行为，这种情况只有图片和链接可以被拖拽。</dd>
-				<dt>element：</dt>
-				<dd>整个元素而非它的内容可拖拽。</dd>
-				<dt>none：</dt>
-				<dd>元素不能被拖动。在通过选中后可拖拽。</dd>
+				<dd>默认值。当手指从触摸屏上移开，滚动会立即停止，相当于普通的滚动效果。</dd>
+				<dt>touch：</dt>
+				<dd>使用具有回弹效果的滚动，当手指从触摸屏上移开，内容会继续保持一段时间的滚动效果。继续滚动的速度和持续的时间和滚动手势的强烈程度成正比。同时也会创建一个新的堆叠上下文。</dd>
 			</dl>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
 		<h2 class="tit">说明：</h2>
 		<div class="cont">
-			<strong>设置或检索一个元素可以被拖拽，而不它的内容。</strong>
+			<strong>指定元素是否使用native-style（滚动回弹效果）来滚动溢出内容。</strong>
 			<ul>
-				<li>对应的脚本特性为<strong>userDrag</strong>。</li>
+				<li>该属性用来控制元素在移动设备上是否使用滚动回弹效果。</li>
+				<li>该属性在 iOS UIWebView 中无效。</li>
+				<li>该属性需与 <a href="../layout/overflow.htm" class="g-property">overflow</a> 属性配合使用，因为必须先定义元素允许滚动，才可以指定它在滚动具有回弹效果。
+					<div class="gquote">
+						<h3 class="gquote-tit">CSS：</h3>
+						<blockquote class="gquote-cont"><code><xmp>.demo {
+	height: 200px;
+	overflow-y: auto; /* 允许元素滚动，值可以是 auto | scroll */
+	-webkit-overflow-scrolling: touch; /* 定义滚动时回弹效果 */
+}</xmp></code></blockquote>
+						<p class="gquote-info">在移动设备上运行这个示例，将能感受到与 Native 相同的滚动回弹；</p>
+					</div>
+				</li>
+				<li>对应的脚本特性为<strong>webkitOverflowScrolling</strong>。</li>
 			</ul>
 		</div>
 	</section>
@@ -108,15 +119,18 @@
 						<td><strong>Basic Support</strong></td>
 						<td class="unsupport">6.0-11.0</td>
 						<td class="unsupport">2.0-40.0</td>
-						<td class="support">4.0-45.0<sup class="fix">-webkit-</sup></td>
-						<td class="support">6.0-8.0<sup class="fix">-webkit-</sup></td>
-						<td class="support">15.0-29.0<sup class="fix">-webkit-</sup></td>
-						<td class="unsupport">6.0-8.3</td>
-						<td class="unsupport">2.1-4.4.4</td>
-						<td class="unsupport">18.0-42.0</td>
+						<td class="unsupport">4.0-45.0</td>
+						<td class="unsupport">6.0-8.0</td>
+						<td class="unsupport">15.0-29.0</td>
+						<td class="support">5.0+ <sup class="fix">-webkit-</sup></td>
+						<td class="partsupport">4.0+ <sup class="fix">-webkit-</sup> <sup><a href="#support1">#1</a></sup></td>
+						<td class="partsupport">18.0-42.0 <sup class="fix">-webkit-</sup> <sup><a href="#support1">#1</a></sup></td>
 					</tr>
 				</tbody>
 			</table>
+			<ol class="support-info">
+				<li id="support1">Android 4.0前期增加了快速回弹滚动效果，不过随后这个特性又被移除，目前为止 Android 上所有浏览器支持该属性但未实现回弹效果。</li>
+			</ol>
 		</div>
 	</section>
 	<section id="example" class="g-mod g-attr">
@@ -127,38 +141,33 @@
 <html lang="zh-cmn-Hans">
 <head>
 <meta charset="utf-8" />
-<title>user-drag_CSS参考手册_web前端开发参考手册系列</title>
+<title>-webkit-overflow-scrolling_CSS参考手册_web前端开发参考手册系列</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
 <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com, www.doyoe.com" />
 <style>
-img {
-	width: 100px;
-	height: 100px;
+html,
+body {
+    overflow: hidden;
 }
-.element {
-	-webkit-user-drag: element;
-	cursor: move;
-	-webkit-user-select: none;
-}
-.none {
-	-webkit-user-drag: none;
+.demo {
+    height: 200px;
+    background-color: red;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 </style>
 </head>
 <body>
-<dl>
-	<dt>auto</dt>
-	<dd><a href="#">我是一个链接</a></dd>
-	<dd><img src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
-	<dd>我是一些纯文字</dd>
-	<dt>element</dt>
-	<dd class="element"><a href="#">我是一个链接</a></dd>
-	<dd class="element"><img src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
-	<dd class="element">我是一些纯文字</dd>
-	<dt>none</dt>
-	<dd><a class="none" href="#">我是一个链接</a></dd>
-	<dd><img class="none" src="../../../images/alipay.png" alt="支付宝二维码" /></dd>
-	<dd class="none">我是一些纯文字</dd>
-</dl>
+<div class="demo">
+    <h2>请在移动设备上查看本例</h2>
+    <p>文字</p>
+    <p>文字</p>
+    <p>文字</p>
+    <p>文字</p>
+    <p>文字</p>
+    <p>文字</p>
+    <p>文字</p>
+</div>
 </body>
 </html>
 			</textarea>
