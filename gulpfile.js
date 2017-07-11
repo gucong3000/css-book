@@ -1,17 +1,17 @@
 "use strict";
-let caniuse = require("caniuse-db/data");
-let convertEncoding = require("gulp-convert-encoding");
-let fs = require("fs-extra-async");
-let gulp = require("gulp");
-let gutil = require("gulp-util");
-let htmlhint = require("gulp-htmlhint");
-let iconv = require("iconv-lite");
-let jsdom = require("jsdom");
-let path = require("path");
-let replace = require("gulp-replace");
-let which = require("which");
+const caniuse = require("caniuse-db/data");
+const convertEncoding = require("gulp-convert-encoding");
+const fs = require("fs-extra");
+const gulp = require("gulp");
+const gutil = require("gulp-util");
+const htmlhint = require("gulp-htmlhint");
+const iconv = require("iconv-lite");
+const path = require("path");
+const replace = require("gulp-replace");
+const which = require("which");
+const { JSDOM } = require("jsdom");
 
-let classFix = {
+const classFix = {
 	p: "experimentsupport",
 	a: "partsupport",
 	n: "unsupport",
@@ -276,11 +276,12 @@ gulp.task("lint", function() {
 });
 
 function readDom(html, selector) {
-	return jsdom.jsdom(html).defaultView.document.querySelector(selector);
+	const dom = new JSDOM(html);
+	return dom.window.document.querySelector(selector);
 }
 
 function readTree() {
-	return fs.readFileAsync("index.htm")
+	return fs.readFile("index.htm")
 
 	.then(html => readDom(html.toString(), "#dytree .unfold"))
 
@@ -318,7 +319,7 @@ function projWalker() {
 
 function fsWalker(rootDir) {
 	// 遍历当前目录下的子对象
-	return fs.readdirAsync(rootDir).then(subNames => {
+	return fs.readdir(rootDir).then(subNames => {
 
 		// 储存当前目录下的子目录的遍历Promise对象
 		let subDirs = [];
@@ -333,7 +334,7 @@ function fsWalker(rootDir) {
 			let subPath = path.join(rootDir, subName);
 
 			// 异步获取子对象状态
-			return fs.statAsync(subPath).then(stat => {
+			return fs.stat(subPath).then(stat => {
 				if (stat.isDirectory()) {
 
 					// 子对象是个目录，则递归查询
@@ -351,7 +352,7 @@ function fsWalker(rootDir) {
 			});
 		});
 
-		// 等待所有fs.statAsync操作完成
+		// 等待所有fs.stat操作完成
 		return Promise.all(subNames).then(() => {
 
 			// 获取所有子目录的遍历结果
@@ -390,7 +391,7 @@ function build() {
 		try {
 			hhcPath = which.sync("hhc");
 		} catch (ex) {
-			// 
+			//
 		}
 		if (!hhcPath) {
 			["ProgramFiles", "ProgramFiles(x86)", "ProgramW6432", "TEMP"]
@@ -468,9 +469,9 @@ gulp.task("chm", function() {
 		}).join("\n");
 
 		return Promise.all([
-			fs.writeFileAsync("css.hhc", iconv.encode(hhc, "gbk")),
-			fs.writeFileAsync("css.hhk", iconv.encode(hhk, "gbk")),
-			fs.writeFileAsync("css.hhp", iconv.encode(hhp, "gbk")),
+			fs.writeFile("css.hhc", iconv.encode(hhc, "gbk")),
+			fs.writeFile("css.hhk", iconv.encode(hhk, "gbk")),
+			fs.writeFile("css.hhp", iconv.encode(hhp, "gbk")),
 		]);
 	}).then(build);
 });
