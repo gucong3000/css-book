@@ -1,4 +1,5 @@
 install:
+  - ps: Install-Product node stable $env:platform
   # 安装npm包
   - npm install
 
@@ -26,8 +27,5 @@ after_build:
   - 7z a css.zip css.chm CHM_blank_solution.txt
 
 artifacts:
-  - path: css.chm
-    name: CSS参考手册
-
   - path: css.zip
     name: CSS参考手册 压缩包
