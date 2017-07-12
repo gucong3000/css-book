@@ -1,5 +1,5 @@
 install:
-  - ps: Install-Product node stable $env:platform
+  - ps: Install-Product node stable
   # 安装npm包
   - npm install
 
