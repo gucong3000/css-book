@@ -1,5 +1,8 @@
+platform:
+  - x64
+
 install:
-  - ps: Install-Product node stable
+  - ps: Install-Product node stable $env:platform
   # 安装npm包
   - npm install
 
