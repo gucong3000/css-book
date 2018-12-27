@@ -877,9 +877,9 @@ Global.folding($('.g-combobox',topDocument));
 		onFolderList.addClass('unfold');
 	})();
 
-	if(Global.notIE && dytree.prop('loaded')){
-		return;
-	}
+	// if(Global.notIE && dytree.prop('loaded')){
+	// 	return;
+	// }
 
 
 	//展开与收起的切换
