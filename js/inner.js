@@ -208,74 +208,33 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'float' : [],
 					'clear' : [],
 					'visibility' : [],
-					'overflow' : [],
-					'overflow-x' : [],
-					'overflow-y' : []
-					//'rotation' : [],
-					//'rotation-point' : []
+					'overflow' : []
 				},
 				dimension : {
-					'index' : ['尺寸(Ddimension)','其它尺寸属性参考'],
+					'index' : ['尺寸与补白(Ddimension)','其它尺寸与补白参考'],
 					'width' : [],
 					'min-width' : [],
 					'max-width' : [],
 					'height' : [],
 					'min-height' : [],
-					'max-height' : []
-				},
-				margin : {
-					'index' : ['外补白(Margin)','其它外补白属性参考'],
+					'max-height' : [],
 					'margin' : [],
-					'margin-top' : [],
-					'margin-right' : [],
-					'margin-bottom' : [],
-					'margin-left' : []
+					'padding' : []
 				},
-				padding : {
-					'index' : ['内补白(Padding)','其它内补白属性参考'],
-					'padding' : [],
-					'padding-top' : [],
-					'padding-right' : [],
-					'padding-bottom' : [],
-					'padding-left' : []
-				},
-				border : {
-					'index' : ['边框(Border)','其它边框属性参考'],
+				backgrounds : {
+					'index' : ['背景与边框(Backgrounds and Borders)','其它背景边框参考'],
 					'border' : [],
 					'border-width' : [],
 					'border-style' : [],
 					'border-color' : [],
-					'border-top' : [],
-					'border-top-width' : [],
-					'border-top-style' : [],
-					'border-top-color' : [],
-					'border-right' : [],
-					'border-right-width' : [],
-					'border-right-style' : [],
-					'border-right-color' : [],
-					'border-bottom' : [],
-					'border-bottom-width' : [],
-					'border-bottom-style' : [],
-					'border-bottom-color' : [],
-					'border-left' : [],
-					'border-left-width' : [],
-					'border-left-style' : [],
-					'border-left-color' : [],
-					'border-radius' : [],
-					'border-top-left-radius' : [],
-					'border-top-right-radius' : [],
-					'border-bottom-right-radius' : [],
-					'border-bottom-left-radius' : [],
 					'box-shadow' : [],
+					'border-radius' : [],
 					'border-image' : [],
 					'border-image-source' : [],
 					'border-image-slice' : [],
 					'border-image-width' : [],
 					'border-image-outset' : [],
-					'border-image-repeat' : []
-				},
-				background : {
-					'index' : ['背景(Background)','其它背景属性参考'],
+					'border-image-repeat' : [],
 					'background' : [],
 					'background-color' : [],
 					'background-image' : [],
@@ -308,7 +267,6 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'white-space' : [],
 					'tab-size' : [],
 					'word-break' : [],
-					'word-wrap' : [],
 					'overflow-wrap' : [],
 					'text-align' : [],
 					'text-align-last' : [],
@@ -469,6 +427,7 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 					'color-index' : [],
 					'monochrome' : [],
 					'resolution' : [],
+					'device-pixel-ratio' : [],
 					'scan' : [],
 					'grid' : []
 				},
@@ -777,7 +736,7 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 				'<li><a href="https://github.com/gucong3000/css-book/issues" target="_blank" rel="external" class="external">Issues</a></li>'+
 				'<li><a href="https://github.com/gucong3000/css-book/pulls" target="_blank" rel="external" class="external">Pull Requests</a></li>'+
 			'</ul>'+
-			'<p>Base Browsers: IE6.0+, Firefox2.0+, Chrome4.0+, Safari6.0+, Opera15.0+</p>'+
+			'<p>Base Browsers: IE8.0+, Firefox40.0+, Chrome40.0+, iOS8.0+, Android4.4+, Opera40.0+</p>'+
 		'</div>';
 
 		$("#title").append(testBrowser);
@@ -795,7 +754,6 @@ if (!Global.isLocal && Global.name && !/^chm:$/i.test(location.protocol)) {
 			'</div>'+
 			'<div class="g-transition list"><ul>'+
 			'<li><a href="#" class="weibo">新浪微博</a></li>'+
-			'<li><a href="#" class="txweibo">腾讯微博</a></li>'+
 			'<li><a href="#" class="qq">QQ空间</a></li>'+
 			'<li><a href="#" class="renren">人人网</a></li>'+
 			'<li><a href="#" class="douban">豆瓣</a></li>'+

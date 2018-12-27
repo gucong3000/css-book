@@ -40,6 +40,7 @@
 		<h1 class="tit">@media</h1>
 		<ul class="info">
 			<li><strong>版本：CSS2/3</strong></li>
+			<li>2018.5.10</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -49,9 +50,9 @@
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
 			<p><strong>@media</strong>：<a href="#dfn-syntax">&lt;media_query_list&gt;</a></p>
-			<p id="dfn-syntax"><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax2">&lt;media_query&gt;</a>[',' <a href="#dfn-syntax2">&lt;media_query&gt;</a>]*]?</p>
+			<p id="dfn-syntax"><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax2">&lt;media_query&gt;</a>[, <a href="#dfn-syntax2">&lt;media_query&gt;</a>]*]?</p>
 			<p id="dfn-syntax2"><strong>&lt;media_query&gt;</strong>：[only | not]? <a href="../appendix/media-types.htm">&lt;media_type&gt;</a> [and <a href="#dfn-syntax3">&lt;expression&gt;</a>]* | <a href="#dfn-syntax3">&lt;expression&gt;</a> [and <a href="#dfn-syntax3">&lt;expression&gt;</a>]*</p>
-			<p id="dfn-syntax3"><strong>&lt;expression&gt;</strong>：'('<a href="../properties/media-queries/index.htm#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?')'</p>
+			<p id="dfn-syntax3"><strong>&lt;expression&gt;</strong>：(<a href="../properties/media-queries/index.htm#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?)</p>
 		</div>
 	</section>
 	<section id="value" class="g-mod g-attr">
@@ -61,7 +62,7 @@
 				<dt><a href="../appendix/media-types.htm">&lt;media_type&gt;</a>：</dt>
 				<dd>指定设备类型。媒体类型包括：参阅<a href="../appendix/media-types.htm">媒体类型</a>。(CSS2)</dd>
 				<dt>&lt;expression&gt;：</dt>
-				<dd>指定媒体查询使用的媒体特性。这类似于CSS属性，如：max-width:960px。(CSS3)</dd>
+				<dd>指定媒体查询使用的媒体特性。这类似于CSS属性，如：max-width: 960px。(CSS3)</dd>
 			</dl>
 		</div>
 	</section>
@@ -70,28 +71,28 @@
 		<div class="cont">
 			<strong>指定样式表规则用于指定的媒体类型和查询条件。</strong>
 			<ul>
-				<li><em class="glight">IE8及以下只能实现CSS2中的部分，即只可以设置媒体类型。</em></li>
+				<li><em class="glight">IE8及以下只能实现 CSS2 中的部分，即只可以设置媒体类型。</em></li>
 				<li>
-					<p>媒体查询可以被用在CSS中的@media和@import规则上，也可以被用在HTML和XML中。</p>
+					<p>媒体查询可以被用在 CSS 中的 @media 和 @import 规则上，也可以被用在 HTML 和 XML 中。</p>
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
-						<blockquote class="gquote-cont"><pre><code>@media screen and (width:800px){ … }
-@import url(example.css) screen and (width:800px);
-&lt;link media="screen and (width:800px)" rel="stylesheet" href="example.css"&gt;
-&lt;?xml-stylesheet media="screen and (width:800px)" rel="stylesheet" href="example.css" ?&gt;</code></pre></blockquote>
+						<blockquote class="gquote-cont"><code><xmp>@media screen and (width: 800px){ … }
+@import url(example.css) screen and (width: 800px);
+<link media="screen and (width: 800px)" rel="stylesheet" href="example.css" />
+<?xml-stylesheet media="screen and (width: 800px)" rel="stylesheet" href="example.css" ?></xmp></code></blockquote>
 					</div>
-				</li>
-				<li class="gquote">
-					<p class="gquote-tit"><strong>列举几种使用方式：</strong></p>
-					<blockquote class="gquote-cont"><code><xmp>@media all and (width:1024px){
-	body{color:#f00;}
+					<div class="gquote">
+						<p class="gquote-tit"><strong>列举几种使用方式：</strong></p>
+						<blockquote class="gquote-cont"><code><xmp>@media all and (width: 1024px) {
+	body { color: #f00; }
 }
-@media all and (device-height:800px){ … }
-@media all and (orientation:landscape){ … }
-@media all and (device-aspect-ratio:16/10){ … }
-@media all and (min-color:1){ … }
-@media all and (monochrome:0){ … }
-@media all and (grid:0){ … }</xmp></code></blockquote>
+@media all and (device-height: 800px){ … }
+@media all and (orientation: landscape){ … }
+@media all and (device-aspect-ratio: 16/10){ … }
+@media all and (min-color: 1){ … }
+@media all and (monochrome: 0){ … }
+@media all and (grid: 0){ … }</xmp></code></blockquote>
+					</div>
 				</li>
 			</ul>
 		</div>

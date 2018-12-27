@@ -41,7 +41,6 @@
 		<h1 class="tit">CSS Media Queries Module</h1>
 		<ul class="info">
 			<li>CSS媒体查询</li>
-			<li>媒体：视觉</li>
 		</ul>
 		<!-- 插入浏览器信息 -->
 	</section>
@@ -50,9 +49,9 @@
 	<section id="syntax" class="g-mod g-attr">
 		<h2 class="tit">语法：</h2>
 		<div class="cont">
-			<p><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax">&lt;media_query&gt;</a>[',' <a href="#dfn-syntax">&lt;media_query&gt;</a>]*]?</p>
+			<p><strong>&lt;media_query_list&gt;</strong>：[<a href="#dfn-syntax">&lt;media_query&gt;</a>[, <a href="#dfn-syntax">&lt;media_query&gt;</a>]*]?</p>
 			<p id="dfn-syntax"><strong>&lt;media_query&gt;</strong>：[only | not]? <a href="../../appendix/media-types.htm">&lt;media_type&gt;</a> [and <a href="#dfn-syntax2">&lt;expression&gt;</a>]* | <a href="#dfn-syntax2">&lt;expression&gt;</a> [and <a href="#dfn-syntax2">&lt;expression&gt;</a>]*</p>
-			<p id="dfn-syntax2"><strong>&lt;expression&gt;</strong>：'('<a href="#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?')'</p>
+			<p id="dfn-syntax2"><strong>&lt;expression&gt;</strong>：(<a href="#media-features-listing">&lt;media_feature&gt;</a>[:&lt;value&gt;]?)</p>
 		</div>
 	</section>
 	<section id="intro" class="g-mod g-attr">
@@ -60,16 +59,16 @@
 		<div class="cont">
 			<strong>通过不同的媒体类型和条件定义样式表规则。</strong>
 			<ul>
-				<li>媒体查询让CSS可以更精确作用于不同的媒体类型和同一媒体的不同条件。</li>
-				<li>媒体查询的大部分媒体特性都接受<code class="incode">min</code>和<code class="incode">max</code>用于表达“大于或等于”和“小与或等于”。如：width会有min-width和max-width</li>
+				<li>媒体查询让 CSS 可以更精确作用于不同的媒体类型和同一媒体的不同条件。</li>
+				<li>媒体查询的大部分媒体特性都接受<code class="g-code">min</code>和<code class="g-code">max</code>用于表达<code class="g-code">大于或等于</code>和<code class="g-code">小与或等于</code>。如：<a href="width.htm" class="g-property">width</a>会有<code class="g-property">min-width</code>和<code class="g-property">max-width</code></li>
 				<li>
-					<p>媒体查询可以被用在CSS中的@media和@import规则上，也可以被用在HTML和XML中。</p>
+					<p>媒体查询可以被用在 CSS 中的 @media 和 @import 规则上，也可以被用在 HTML 和 XML 中。</p>
 					<div class="gquote">
 						<p class="gquote-tit"><strong>示例代码：</strong></p>
-						<blockquote class="gquote-cont"><pre><code>@media screen and (width:800px){ … }
-@import url(example.css) screen and (width:800px);
-&lt;link media="screen and (width:800px)" rel="stylesheet" href="example.css" /&gt;
-&lt;?xml-stylesheet media="screen and (width:800px)" rel="stylesheet" href="example.css" ?&gt;</code></pre></blockquote>
+						<blockquote class="gquote-cont"><code><xmp>@media screen and (width:800px){ … }
+@import url(example.css) screen and (width: 800px);
+<link media="screen and (width: 800px)" rel="stylesheet" href="example.css" />
+<?xml-stylesheet media="screen and (width: 800px)" rel="stylesheet" href="example.css" ?></xmp></code></blockquote>
 					</div>
 				</li>
 			</ul>
@@ -116,19 +115,19 @@
 						<td><a href="orientation.htm" class="g-color-css3-new">orientation</a></td>
 						<td>portrait | landscape</td>
 						<td>no</td>
-						<td>定义'height'是否大于或等于'width'。值portrait代表是，landscape代表否</td>
+						<td>定义输出设备中的页面可见区域高度是否大于或等于宽度。可用于检测设备是横屏还是竖屏</td>
 					</tr>
 					<tr>
 						<td><a href="aspect-ratio.htm" class="g-color-css3-new">aspect-ratio</a></td>
 						<td>&lt;ratio&gt;</td>
 						<td>yes</td>
-						<td>定义'width'与'height'的比率</td>
+						<td>定义页面可见区域宽度与高度的比率</td>
 					</tr>
 					<tr>
 						<td><a href="device-aspect-ratio.htm" class="g-color-css3-new">device-aspect-ratio</a></td>
 						<td>&lt;ratio&gt;</td>
 						<td>yes</td>
-						<td>定义'device-width'与'device-height'的比率。如常见的显示器比率：4/3, 16/9, 16/10</td>
+						<td>定义输出设备的屏幕可见宽度与高度的比率。常见比率：4/3, 16/9, 16/10</td>
 					</tr>
 					<tr>
 						<td><a href="color.htm" class="g-color-css3-new">color</a></td>
@@ -140,19 +139,25 @@
 						<td><a href="color-index.htm" class="g-color-css3-new">color-index</a></td>
 						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
 						<td>yes</td>
-						<td>定义在输出设备的彩色查询表中的条目数。如果没有使用彩色查询表，则值等于0</td>
+						<td>定义输出设备的颜色查找表中的条目数。如果没有使用颜色查询表，则值等于0</td>
 					</tr>
 					<tr>
 						<td><a href="monochrome.htm" class="g-color-css3-new">monochrome</a></td>
 						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
 						<td>yes</td>
-						<td>定义在一个单色框架缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
+						<td>定每个单色帧缓冲区中每像素包含的单色原件个数。如果不是单色设备，则值等于0</td>
 					</tr>
 					<tr>
 						<td><a href="resolution.htm" class="g-color-css3-new">resolution</a></td>
-						<td>&lt;resolution&gt;</td>
+						<td><a href="../../values/resolution/resolution.htm">&lt;resolution&gt;</a></td>
 						<td>yes</td>
-						<td>定义设备的分辨率。如：96dpi, 300dpi, 118dpcm</td>
+						<td>定义设备屏幕的像素密度（即屏幕质量）。如：96dpi, 300dpi, 118dpcm</td>
+					</tr>
+					<tr>
+						<td><a href="device-pixel-ratio.htm">device-pixel-ratio</a></td>
+						<td><a href="../../values/numeric/number.htm">&lt;number&gt;</a></td>
+						<td>yes</td>
+						<td>非标准特性。部分浏览器不支持<a href="resolution.htm" class="g-property">resolution</a>特性可使用本特性替代</td>
 					</tr>
 					<tr>
 						<td><a href="scan.htm" class="g-color-css3-new">scan</a></td>
@@ -164,7 +169,7 @@
 						<td><a href="grid.htm" class="g-color-css3-new">grid</a></td>
 						<td><a href="../../values/numeric/integer.htm">&lt;integer&gt;</a></td>
 						<td>no</td>
-						<td>用来查询输出设备是否使用栅格或点阵。只有1和0才是有效值，1代表是，0代表否</td>
+						<td>用来查询输出设备是否使用栅格或点阵。1代表是，0代表否</td>
 					</tr>
 				</tbody>
 			</table>
