@@ -3,7 +3,7 @@ const caniuse = require("caniuse-db/data");
 const convertEncoding = require("gulp-convert-encoding");
 const fs = require("fs-extra");
 const gulp = require("gulp");
-const gutil = require("gulp-util");
+const log = require('fancy-log');
 const htmlhint = require("gulp-htmlhint");
 const iconv = require("iconv-lite");
 const path = require("path");
@@ -228,9 +228,9 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 
 	if (!data) {
 		if (propName) {
-			gutil.log("caniuse数据中无此项：\t" + propName);
+			log.error("caniuse数据中无此项：\t" + propName);
 		} else {
-			gutil.log("未指定caniuse查询项目。");
+			log.error("未指定caniuse查询项目。");
 		}
 	} else {
 		str = compatible(data, strPropName, propName, strIndent, indent) || str;
@@ -240,7 +240,7 @@ function caniuseData(str, strIndent, strPropName, subName, index, html) {
 
 // html修复
 gulp.task("htm", function() {
-	gutil.log("正在修复HTML文件");
+	log("正在修复HTML文件");
 
 	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*", "!index.htm"])
 		.pipe(replace(/([\t ]*)<\!--\s*compatible\s*:\s*(\w+(-\w+)?)\s*-->[\s\S]*?<!--\s*compatible\s*:\s*end\s*-->/g, caniuseData))
@@ -248,14 +248,14 @@ gulp.task("htm", function() {
 			return char + tab(parseInt(str.length / 4));
 		}))
 		.pipe(replace(/<meta\s+charset=(["'])[\w-]+\1(?:\s+\/)?>/i, process.env.CI ? "<meta charset=\"gbk\">" : "<meta charset=\"utf-8\" />"))
-		.pipe(process.env.CI ? convertEncoding({to: "gbk"}) : gutil.noop())
+		.pipe(convertEncoding({to: process.env.CI ? "gbk" : "utf8"}))
 		.pipe(gulp.dest("."));
 });
 
 // html修复
 gulp.task("gbk-js", function(cb) {
 	if (process.env.CI) {
-		gutil.log("正在修改js文件文件编码");
+		log("正在修改js文件文件编码");
 
 		return gulp.src(["js/**/*.js"])
 			.pipe(convertEncoding({to: "gbk"}))
@@ -267,7 +267,7 @@ gulp.task("gbk-js", function(cb) {
 
 // html验证
 gulp.task("lint", function() {
-	gutil.log("正在检查所有html文件代码是否合法");
+	log("正在检查所有html文件代码是否合法");
 
 	return gulp.src(["**/*.htm", "**/*.html", "!**/node_modules/**/*"])
 		.pipe(htmlhint())
@@ -411,7 +411,7 @@ function build() {
 	if (hhcPath) {
 		let child_process = require("child_process");
 		return new Promise((resolve, reject) => {
-			gutil.log("正在编译chm");
+			log("正在编译chm");
 			child_process.exec("taskkill /F /IM hh.exe", function() {
 
 				child_process.execFile(hhcPath, [path.join(process.cwd(), "css.hhp")], (error, stdout, stderr) => {
@@ -432,14 +432,14 @@ function build() {
 			if (!process.env.CI) {
 				opener("css.chm");
 			}
-			gutil.log(stdout);
-			gutil.log("chm编译成功");
+			log(stdout);
+			log("chm编译成功");
 		}).catch(stderr => {
-			gutil.log(stderr);
-			gutil.log("chm编译发生错误");
+			log.error(stderr);
+			log.error("chm编译发生错误");
 		});
 	} else {
-		gutil.log("未找到hhc.exe，请安装[HTML Help Workshop](https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe)");
+		log.error("未找到hhc.exe，请安装[HTML Help Workshop](https://download.microsoft.com/download/0/A/9/0A939EF6-E31C-430F-A3DF-DFAE7960D564/htmlhelp.exe)");
 		opener("css.hhp");
 		return Promise.reject(hhcPath);
 	}
@@ -447,7 +447,7 @@ function build() {
 
 //生成chm文件
 gulp.task("chm", function() {
-	gutil.log("正在生成工程文件");
+	log("正在生成工程文件");
 	return Promise.all([
 		readTree(),
 		projWalker(),
